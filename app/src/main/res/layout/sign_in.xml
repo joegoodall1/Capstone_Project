@@ -39,19 +39,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/signed_out"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="14sp"/>
 
         <TextView
-            android:id="@+id/detail"
+            android:id="@+id/emailAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fadeScrollbars="true"
-            android:gravity="center"
-            android:maxLines="5"
-            android:padding="10dp"
-            android:scrollbars="vertical"
-            android:textColor="@android:color/white"
+            android:text="@string/email"
+            android:textColor="@android:color/black"
             android:textSize="14sp"/>
 
         <com.google.android.gms.common.SignInButton

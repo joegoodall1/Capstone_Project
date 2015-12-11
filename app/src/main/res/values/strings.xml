@@ -4,9 +4,11 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="signed_in_fmt">Signed in as: %s</string>
+    <string name="email_in_fmt">Email: %s</string>
     <string name="signed_in">Signed in</string>
     <string name="signing_in">Signing in…</string>
     <string name="signed_out">Signed out</string>
+    <string name="email"></string>
     <string name="sign_out">Sign Out</string>
     <string name="disconnect">Disconnect</string>
     <string name="loading">Loading…</string>

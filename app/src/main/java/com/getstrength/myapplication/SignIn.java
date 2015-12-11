@@ -32,6 +32,7 @@ public class SignIn extends AppCompatActivity implements
 
     private GoogleApiClient mGoogleApiClient;
     private TextView mStatusTextView;
+    private TextView mStatusEmailView;
     private ProgressDialog mProgressDialog;
 
     @Override
@@ -41,6 +42,7 @@ public class SignIn extends AppCompatActivity implements
 
         // Views
         mStatusTextView = (TextView) findViewById(R.id.status);
+        mStatusEmailView = (TextView) findViewById(R.id.emailAddress);
 
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
@@ -124,9 +126,10 @@ public class SignIn extends AppCompatActivity implements
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
             mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
+            mStatusEmailView.setText(getString(R.string.email_in_fmt, acct.getEmail()));
             updateUI(true);
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            /*Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);*/
         } else {
             // Signed out, show unauthenticated UI.
             updateUI(false);
@@ -198,6 +201,8 @@ public class SignIn extends AppCompatActivity implements
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
         } else {
             mStatusTextView.setText(R.string.signed_out);
+            mStatusEmailView.setText(R.string.email);
+
 
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
