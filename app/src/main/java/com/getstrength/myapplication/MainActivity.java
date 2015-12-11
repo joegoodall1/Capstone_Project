@@ -1,5 +1,6 @@
 package com.getstrength.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -101,5 +102,10 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void click_screen(View v) {
+        Intent intent = new Intent(this, SignIn.class);
+        startActivity(intent);
     }
 }

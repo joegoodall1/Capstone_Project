@@ -12,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="168dp"
         android:background="@drawable/wallpaper"
-        android:paddingTop="24dp">
+        android:paddingTop="24dp"
+        android:onClick="click_screen"
+        android:clickable="true">
 
         <ImageView
             android:id="@+id/imgAvatar"

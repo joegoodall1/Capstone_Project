@@ -3,9 +3,12 @@ package com.getstrength.myapplication;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.Auth;
@@ -18,6 +21,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.squareup.picasso.Picasso;
 
 /**
  * Activity to demonstrate basic retrieval of the Google user's ID, email address, and basic
@@ -33,6 +37,7 @@ public class SignIn extends AppCompatActivity implements
     private GoogleApiClient mGoogleApiClient;
     private TextView mStatusTextView;
     private TextView mStatusEmailView;
+    private ImageView profilePic;
     private ProgressDialog mProgressDialog;
 
     @Override
@@ -43,6 +48,7 @@ public class SignIn extends AppCompatActivity implements
         // Views
         mStatusTextView = (TextView) findViewById(R.id.status);
         mStatusEmailView = (TextView) findViewById(R.id.emailAddress);
+        profilePic = (ImageView) findViewById(R.id.profile_pic);
 
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
@@ -127,9 +133,19 @@ public class SignIn extends AppCompatActivity implements
             GoogleSignInAccount acct = result.getSignInAccount();
             mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
             mStatusEmailView.setText(getString(R.string.email_in_fmt, acct.getEmail()));
+            Picasso.with(this).load(acct.getPhotoUrl()).into(profilePic);
             updateUI(true);
-            /*Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);*/
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(SignIn.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            }, 3000);
+            Snackbar.make(findViewById(android.R.id.content), "Successfully signed in!", Snackbar.LENGTH_SHORT)
+                    .show();
         } else {
             // Signed out, show unauthenticated UI.
             updateUI(false);
@@ -199,13 +215,15 @@ public class SignIn extends AppCompatActivity implements
         if (signedIn) {
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
+            findViewById(R.id.profile_pic).setVisibility(View.VISIBLE);
         } else {
             mStatusTextView.setText(R.string.signed_out);
             mStatusEmailView.setText(R.string.email);
 
-
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
+            findViewById(R.id.profile_pic).setVisibility(View.GONE);
+
         }
     }
 
