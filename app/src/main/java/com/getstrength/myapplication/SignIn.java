@@ -96,7 +96,11 @@ public class SignIn extends AppCompatActivity implements
             // and the GoogleSignInResult will be available instantly.
             Log.d(TAG, "Got cached sign-in");
             GoogleSignInResult result = opr.get();
-            handleSignInResult(result);
+            GoogleSignInAccount acct = result.getSignInAccount();
+            mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
+            mStatusEmailView.setText(getString(R.string.email_in_fmt, acct.getEmail()));
+            Picasso.with(this).load(acct.getPhotoUrl()).into(profilePic);
+            updateUI(true);
         } else {
             // If the user has not previously signed in on this device or the sign-in has expired,
             // this asynchronous branch will attempt to sign in the user silently.  Cross-device
@@ -144,8 +148,10 @@ public class SignIn extends AppCompatActivity implements
                     startActivity(intent);
                 }
             }, 3000);
+
             Snackbar.make(findViewById(android.R.id.content), "Successfully signed in!", Snackbar.LENGTH_SHORT)
                     .show();
+
         } else {
             // Signed out, show unauthenticated UI.
             updateUI(false);
