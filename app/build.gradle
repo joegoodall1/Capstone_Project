@@ -29,4 +29,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-auth:8.3.0'
     compile 'com.squareup.picasso:picasso:2.3.3'
     compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.github.traex.calendarlistview:library:1.2.3'
+    compile 'com.android.support:support-v4:23.1.1'
 }

@@ -21,7 +21,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String mName = getIntent().getStringExtra("name");
+        String mEmail = getIntent().getStringExtra("email");
+
+       /* Uri mPhoto = Uri.parse(getIntent().getStringExtra("photo"));*/
+
+
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
@@ -41,8 +48,8 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
+        navigationView.setNavigationItemSelectedListener(this);
 
     }
 
@@ -103,6 +110,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     public void click_screen(View v) {
         Intent intent = new Intent(this, SignIn.class);

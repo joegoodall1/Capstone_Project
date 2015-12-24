@@ -134,7 +134,7 @@ public class SignIn extends AppCompatActivity implements
         Log.d(TAG, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount acct = result.getSignInAccount();
+            final GoogleSignInAccount acct = result.getSignInAccount();
             mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
             mStatusEmailView.setText(getString(R.string.email_in_fmt, acct.getEmail()));
             Picasso.with(this).load(acct.getPhotoUrl()).into(profilePic);
@@ -145,6 +145,9 @@ public class SignIn extends AppCompatActivity implements
                 @Override
                 public void run() {
                     Intent intent = new Intent(SignIn.this, MainActivity.class);
+                    intent.putExtra("name", acct.getDisplayName());
+                    intent.putExtra("email", acct.getEmail());
+                    intent.putExtra("photo", acct.getPhotoUrl().toString());
                     startActivity(intent);
                 }
             }, 3000);

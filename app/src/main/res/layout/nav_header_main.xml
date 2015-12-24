@@ -45,9 +45,9 @@
                 android:id="@+id/status"
                 android:text="@string/tap_to_login"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="28dp"
                 android:fontFamily="sans-serif-medium"
-                android:textColor="@android:color/secondary_text_light"
+                android:textColor="#424242"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
 
@@ -55,11 +55,19 @@
                 android:id="@+id/txtUserEmail"
                 android:text="@string/nav_header_status"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="28dp"
                 android:fontFamily="sans-serif"
                 android:textColor="@android:color/secondary_text_light"
                 android:textSize="14sp"/>
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Joe Goodall"
+            android:id="@+id/user_name"
+            android:layout_alignTop="@+id/imgAvatar"
+            android:layout_centerHorizontal="true"/>
     </RelativeLayout>
 
 </RelativeLayout>
