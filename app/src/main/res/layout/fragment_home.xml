@@ -18,6 +18,7 @@
         android:text="HOME"
         android:textStyle="bold"/>
 
+
     <TextView
         android:layout_below="@id/label"
         android:layout_centerInParent="true"
