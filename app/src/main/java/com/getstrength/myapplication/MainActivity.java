@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity
         String mName = getIntent().getStringExtra("name");
         String mEmail = getIntent().getStringExtra("email");
 
-       /* Uri mPhoto = Uri.parse(getIntent().getStringExtra("photo"));*/
+        /*Uri mPhoto = Uri.parse(getIntent().getStringExtra("photo"));*/
 
         //Set the fragment initially
         HomeFragment fragment = new HomeFragment();

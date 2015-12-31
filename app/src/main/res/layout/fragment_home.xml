@@ -29,4 +29,10 @@
         android:gravity="center_horizontal"
         android:text="Edit fragment_home.xml to change the appearance"/>
 
+    <com.squareup.timessquare.CalendarPickerView
+        android:id="@+id/calendar_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
 </RelativeLayout>
