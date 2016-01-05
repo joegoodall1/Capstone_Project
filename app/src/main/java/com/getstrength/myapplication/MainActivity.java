@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_home) {
             Toast.makeText(getApplicationContext(), "text", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_gallery) {
             NewFragment fragment = new NewFragment();
