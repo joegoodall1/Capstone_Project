@@ -99,7 +99,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            Toast.makeText(getApplicationContext(), "text", Toast.LENGTH_SHORT).show();
+            NewFragment fragment = new NewFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
         } else if (id == R.id.nav_gallery) {
             NewFragment fragment = new NewFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
