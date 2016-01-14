@@ -2,6 +2,7 @@
 <manifest package="com.getstrength.myapplication"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,11 +16,21 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
         </activity>
+
+
         <activity
             android:name="com.getstrength.myapplication.SignIn"
             android:label="@string/sign_in_header">
         </activity>
+
+        <activity
+            android:name=".EditorMainActivity"
+            android:parentActivityName=".MainActivity">
+
+        </activity>
+
 
     </application>
 
