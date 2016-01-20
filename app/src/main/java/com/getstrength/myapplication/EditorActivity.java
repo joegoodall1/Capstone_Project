@@ -123,4 +123,5 @@ public class EditorActivity extends ActionBarActivity {
     public void onBackPressed() {
         finishEditing();
     }
+
 }

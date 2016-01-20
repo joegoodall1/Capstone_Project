@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.getstrength.myapplication.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -20,26 +20,27 @@
         </activity>
 
         <provider
-            android:name=".NotesProvider"
+            android:name="com.getstrength.myapplication.NotesProvider"
             android:authorities="com.getstrength.myapplication.notesprovider"
             android:exported="false"/>
 
         <activity
-            android:name=".NotesActivity"
-            android:label=""
-            android:parentActivityName=".MainActivity">
+            android:name="com.getstrength.myapplication.NotesActivity"
+            android:label="History"
+            android:parentActivityName="com.getstrength.myapplication.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value="com.getstrength.myapplication.MainActivity"/>
         </activity>
 
         <activity
-            android:name=".EditorActivity"
+            android:name="com.getstrength.myapplication.EditorActivity"
             android:label="@string/title_activity_editor"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName="com.getstrength.myapplication.NotesActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value="com.getstrength.myapplication.NotesActivity"
+                android:launchMode="singleTop"/>
         </activity>
 
         <activity
