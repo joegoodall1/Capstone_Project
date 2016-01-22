@@ -2,6 +2,7 @@ package com.getstrength.myapplication;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.AlarmClock;
@@ -20,33 +21,45 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    Uri mPhoto;
+    String mEmail;
+    String mName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String mName = getIntent().getStringExtra("name");
-        String mEmail = getIntent().getStringExtra("email");
+        setContentView(R.layout.activity_main);
 
-        /*Uri mPhoto = Uri.parse(getIntent().getStringExtra("photo"));*/
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+
+        if (bundle != null) {
+            mName = bundle.getString("name");
+            mEmail = bundle.getString("email");
+            mPhoto = Uri.parse(bundle.getString("photo"));
+
+            /*TextView emailView = ((TextView)findViewById(R.id.nav_view).findViewById(R.id.txtUserEmail));
+            String st="fgdfghgf";
+            emailView.setText(st);*/
+
+            Toast.makeText(getApplicationContext(), "yes", Toast.LENGTH_SHORT).show();
+        }
 
         //Set the fragment initially
-        HomeFragment fragment = new HomeFragment();
+        NewFragment fragment = new NewFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
 
 
-        setContentView(R.layout.activity_main);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
                 Intent intent = new Intent(MainActivity.this, EditorActivity.class);
                 startActivity(intent);
             }
@@ -112,6 +125,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_history) {
             Intent intent = new Intent(MainActivity.this, NotesActivity.class);
             startActivity(intent);
+            /*NotesFragment fragment = new NotesFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();*/
         } else if (id == R.id.nav_calendar) {
             HomeFragment fragment = new HomeFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
@@ -125,7 +143,7 @@ public class MainActivity extends AppCompatActivity
             openClockIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(openClockIntent);
         } else if (id == R.id.nav_settings) {
-            Toast.makeText(getApplicationContext(), "yes", Toast.LENGTH_SHORT).show();
+            /*Toast.makeText(getApplicationContext(), "yes", Toast.LENGTH_SHORT).show();*/
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

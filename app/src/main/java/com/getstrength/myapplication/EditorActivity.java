@@ -9,7 +9,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 public class EditorActivity extends ActionBarActivity {
@@ -19,12 +23,24 @@ public class EditorActivity extends ActionBarActivity {
     private String noteFilter;
     private String oldText;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
         editor = (EditText) findViewById(R.id.editText);
+
+        Calendar c = Calendar.getInstance();
+        System.out.println("Current time => " + c.getTime());
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c.getTime());
+
+
+        TextView footer = (TextView) findViewById(R.id.textVieww);
+        footer.setText("" + formattedDate);
+
 
         Intent intent = getIntent();
 

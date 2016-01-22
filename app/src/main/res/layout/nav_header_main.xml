@@ -51,23 +51,28 @@
                 android:textSize="14sp"
                 android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/txtUserEmail"
-                android:text="@string/nav_header_status"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:fontFamily="sans-serif"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="14sp"/>
+
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Joe Goodall"
+            android:text=""
             android:id="@+id/user_name"
             android:layout_alignTop="@+id/imgAvatar"
             android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/txtUserEmail"
+            android:text="@string/nav_header_status"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_below="@+id/user_name"
+            android:layout_toRightOf="@id/imgAvatar"
+            android:fontFamily="sans-serif"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="14sp"/>
+
     </RelativeLayout>
 
 </RelativeLayout>

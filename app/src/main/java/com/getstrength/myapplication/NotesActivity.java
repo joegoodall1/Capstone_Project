@@ -20,9 +20,7 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-/**
- * Created by Joe on 19/01/2016.
- */
+
 public class NotesActivity extends ActionBarActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int EDITOR_REQUEST_CODE = 1001;

@@ -9,6 +9,13 @@
                 tools:context="com.example.plainolnotes.EditorActivity">
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textVieww"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,4 +29,6 @@
         android:layout_alignParentEnd="true"
         android:hint="@string/enter_note_here"
         android:inputType="textMultiLine|textCapSentences"/>
+
+
 </RelativeLayout>
