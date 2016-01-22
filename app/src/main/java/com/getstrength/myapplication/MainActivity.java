@@ -16,7 +16,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,15 +39,17 @@ public class MainActivity extends AppCompatActivity
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
-
         if (bundle != null) {
             mName = bundle.getString("name");
             mEmail = bundle.getString("email");
             mPhoto = Uri.parse(bundle.getString("photo"));
 
-            /*TextView emailView = ((TextView)findViewById(R.id.nav_view).findViewById(R.id.txtUserEmail));
-            String st="fgdfghgf";
-            emailView.setText(st);*/
+            NavigationView navView = (NavigationView) super.findViewById(R.id.nav_view);
+            RelativeLayout navViewHeaderView = (RelativeLayout) navView.getHeaderView(0);
+            ImageView profilePic = (ImageView) navViewHeaderView.findViewById(R.id.imgAvatar);
+
+            Picasso.with(this).load(mPhoto).into(profilePic);
+
 
             Toast.makeText(getApplicationContext(), "yes", Toast.LENGTH_SHORT).show();
         }
