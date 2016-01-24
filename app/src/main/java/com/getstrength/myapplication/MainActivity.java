@@ -18,7 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity
     Uri mPhoto;
     String mEmail;
     String mName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +47,15 @@ public class MainActivity extends AppCompatActivity
 
             NavigationView navView = (NavigationView) super.findViewById(R.id.nav_view);
             RelativeLayout navViewHeaderView = (RelativeLayout) navView.getHeaderView(0);
-            ImageView profilePic = (ImageView) navViewHeaderView.findViewById(R.id.imgAvatar);
 
+            ImageView profilePic = (ImageView) navViewHeaderView.findViewById(R.id.imgAvatar);
             Picasso.with(this).load(mPhoto).into(profilePic);
 
+            TextView user_name = (TextView) navViewHeaderView.findViewById(R.id.user_name);
+            user_name.setText(mName);
 
-            Toast.makeText(getApplicationContext(), "yes", Toast.LENGTH_SHORT).show();
+            TextView txtUserEmail = (TextView) navViewHeaderView.findViewById(R.id.txtUserEmail);
+            txtUserEmail.setText(mEmail);
         }
 
         //Set the fragment initially
@@ -129,13 +133,13 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
         } else if (id == R.id.nav_history) {
-            Intent intent = new Intent(MainActivity.this, NotesActivity.class);
-            startActivity(intent);
-            /*NotesFragment fragment = new NotesFragment();
+            /*Intent intent = new Intent(MainActivity.this, NotesActivity.class);
+            startActivity(intent);*/
+            NotesFragment fragment = new NotesFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment);
-            fragmentTransaction.commit();*/
+            fragmentTransaction.commit();
         } else if (id == R.id.nav_calendar) {
             HomeFragment fragment = new HomeFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
