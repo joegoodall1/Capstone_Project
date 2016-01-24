@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity
 
             TextView txtUserEmail = (TextView) navViewHeaderView.findViewById(R.id.txtUserEmail);
             txtUserEmail.setText(mEmail);
+        } else {
+
         }
 
         //Set the fragment initially
