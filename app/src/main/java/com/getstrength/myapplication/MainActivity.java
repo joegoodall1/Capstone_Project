@@ -2,6 +2,7 @@ package com.getstrength.myapplication;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ import com.squareup.picasso.Picasso;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final String SHARED_PREFS_NAME = "details";
+
     Uri mPhoto;
     String mEmail;
     String mName;
@@ -37,13 +40,13 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        Intent intent = getIntent();
+   /*     Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
         if (bundle != null) {
             mName = bundle.getString("name");
             mEmail = bundle.getString("email");
-            mPhoto = Uri.parse(bundle.getString("photo"));
+            //mPhoto = Uri.parse(bundle.getString("photo"));
 
             NavigationView navView = (NavigationView) super.findViewById(R.id.nav_view);
             RelativeLayout navViewHeaderView = (RelativeLayout) navView.getHeaderView(0);
@@ -52,13 +55,14 @@ public class MainActivity extends AppCompatActivity
             Picasso.with(this).load(mPhoto).into(profilePic);
 
             TextView user_name = (TextView) navViewHeaderView.findViewById(R.id.user_name);
+            *//*user_name.setVisibility(View.VISIBLE);*//*
             user_name.setText(mName);
 
             TextView txtUserEmail = (TextView) navViewHeaderView.findViewById(R.id.txtUserEmail);
+            *//*txtUserEmail.setVisibility(View.VISIBLE);*//*
             txtUserEmail.setText(mEmail);
-        } else {
+        } */
 
-        }
 
         //Set the fragment initially
         NewFragment fragment = new NewFragment();
@@ -87,6 +91,36 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        NavigationView navView = (NavigationView) super.findViewById(R.id.nav_view);
+        RelativeLayout navViewHeaderView = (RelativeLayout) navView.getHeaderView(0);
+
+        ImageView profilePic = (ImageView) navViewHeaderView.findViewById(R.id.imgAvatar);
+        TextView user_name = (TextView) navViewHeaderView.findViewById(R.id.user_name);
+        TextView txtUserEmail = (TextView) navViewHeaderView.findViewById(R.id.txtUserEmail);
+
+        SharedPreferences prefs = getSharedPreferences(MainActivity.SHARED_PREFS_NAME, MODE_PRIVATE);
+        mName = prefs.getString("name", null);
+        if (mName != null) {
+            mName = prefs.getString("name", null);
+            mEmail = prefs.getString("email", null);
+            String photoPic = prefs.getString("profile", null);
+            if (photoPic != null) {
+                mPhoto = Uri.parse(photoPic);
+            }
+            Picasso.with(this).load(mPhoto).into(profilePic);
+            user_name.setText(mName);
+            txtUserEmail.setText(mEmail);
+        } else {
+            profilePic.setImageResource(R.drawable.ic_account_circle_24dp);
+            user_name.setText("");
+            txtUserEmail.setText("");
+        }
     }
 
     @Override

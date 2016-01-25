@@ -2,6 +2,7 @@ package com.getstrength.myapplication;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
@@ -162,9 +163,14 @@ public class SignIn extends AppCompatActivity implements
                 @Override
                 public void run() {
                     Intent intent = new Intent(SignIn.this, MainActivity.class);
-                    intent.putExtra("name", acct.getDisplayName());
+                    SharedPreferences.Editor editor = getSharedPreferences(MainActivity.SHARED_PREFS_NAME, MODE_PRIVATE).edit();
+                    editor.putString("name", acct.getDisplayName());
+                    editor.putString("email", acct.getEmail());
+                    editor.putString("profile", acct.getPhotoUrl().toString());
+                    editor.apply();
+                    /*intent.putExtra("name", acct.getDisplayName());
                     intent.putExtra("email", acct.getEmail());
-                    intent.putExtra("photo", acct.getPhotoUrl().toString());
+                    intent.putExtra("photo", acct.getPhotoUrl().toString());*/
                     startActivity(intent);
                 }
             }, 3000);
@@ -192,7 +198,8 @@ public class SignIn extends AppCompatActivity implements
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
-                        // [START_EXCLUDE]
+                        SharedPreferences preferences = getSharedPreferences(MainActivity.SHARED_PREFS_NAME, MODE_PRIVATE);
+                        preferences.edit().clear().apply();
                         updateUI(false);
                         // [END_EXCLUDE]
                     }
