@@ -40,29 +40,6 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-   /*     Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-
-        if (bundle != null) {
-            mName = bundle.getString("name");
-            mEmail = bundle.getString("email");
-            //mPhoto = Uri.parse(bundle.getString("photo"));
-
-            NavigationView navView = (NavigationView) super.findViewById(R.id.nav_view);
-            RelativeLayout navViewHeaderView = (RelativeLayout) navView.getHeaderView(0);
-
-            ImageView profilePic = (ImageView) navViewHeaderView.findViewById(R.id.imgAvatar);
-            Picasso.with(this).load(mPhoto).into(profilePic);
-
-            TextView user_name = (TextView) navViewHeaderView.findViewById(R.id.user_name);
-            *//*user_name.setVisibility(View.VISIBLE);*//*
-            user_name.setText(mName);
-
-            TextView txtUserEmail = (TextView) navViewHeaderView.findViewById(R.id.txtUserEmail);
-            *//*txtUserEmail.setVisibility(View.VISIBLE);*//*
-            txtUserEmail.setText(mEmail);
-        } */
-
 
         //Set the fragment initially
         NewFragment fragment = new NewFragment();
