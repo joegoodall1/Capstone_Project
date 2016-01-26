@@ -37,6 +37,7 @@
         <activity
             android:name="com.getstrength.myapplication.EditorActivity"
             android:label="@string/title_activity_editor"
+            android:windowSoftInputMode="stateVisible"
             android:parentActivityName="com.getstrength.myapplication.NotesActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
