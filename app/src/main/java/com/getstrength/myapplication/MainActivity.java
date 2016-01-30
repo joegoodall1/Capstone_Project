@@ -146,8 +146,6 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
         } else if (id == R.id.nav_history) {
-            /*Intent intent = new Intent(MainActivity.this, NotesActivity.class);
-            startActivity(intent);*/
             NotesFragment fragment = new NotesFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
@@ -166,7 +164,8 @@ public class MainActivity extends AppCompatActivity
             openClockIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(openClockIntent);
         } else if (id == R.id.nav_settings) {
-            /*Toast.makeText(getApplicationContext(), "yes", Toast.LENGTH_SHORT).show();*/
+            Intent intent = new Intent(MainActivity.this, BasicActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

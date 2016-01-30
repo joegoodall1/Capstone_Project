@@ -50,6 +50,11 @@
             android:label="@string/sign_in_header">
         </activity>
 
+        <activity
+            android:name="com.getstrength.myapplication.BasicActivity"
+            android:label="@string/sign_in_header">
+        </activity>
+
 
     </application>
 

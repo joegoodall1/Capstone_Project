@@ -2,6 +2,16 @@
     <string name="app_name">StrengthTracker</string>
     <string name="sign_in_header">User Profile</string>
 
+    <string-array name="planets_array">
+        <item>Bench press</item>
+        <item>Back squat</item>
+        <item>Deadlift</item>
+        <item>Military press</item>
+        <item>Pull ups</item>
+        <item>Bent over row</item>
+        <item>Front squat</item>
+    </string-array>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="signed_in_fmt">Signed in as: %s</string>
