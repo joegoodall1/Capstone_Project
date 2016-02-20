@@ -141,7 +141,7 @@ public class EditorActivity extends ActionBarActivity {
         final TextView set = (TextView) rowView.findViewById(R.id.textView1);
         final EditText weight = (EditText) rowView.findViewById(R.id.editText1);
         final EditText reps = (EditText) rowView.findViewById(R.id.editText2);
-        mContainerView.addView(rowView, mContainerView.getChildCount() - 2);
+        mContainerView.addView(rowView, mContainerView.getChildCount());
 
         Toast.makeText(EditorActivity.this, "Add set", Toast.LENGTH_SHORT).show();
     }
