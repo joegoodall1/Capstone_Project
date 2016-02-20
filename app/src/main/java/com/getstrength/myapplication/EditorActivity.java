@@ -6,11 +6,15 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -20,6 +24,7 @@ public class EditorActivity extends ActionBarActivity {
     private EditText editor;
     private String noteFilter;
     private String oldText;
+    private LinearLayout mContainerView;
 
 
     @Override
@@ -28,6 +33,7 @@ public class EditorActivity extends ActionBarActivity {
         setContentView(R.layout.activity_editor);
 
         editor = (EditText) findViewById(R.id.editText);
+        mContainerView = (LinearLayout) findViewById(R.id.parentView);
 
         Intent intent = getIntent();
 
@@ -123,6 +129,28 @@ public class EditorActivity extends ActionBarActivity {
         setResult(RESULT_OK);
     }
 
+    public void addSet(View view) {
+
+        inflateEditRow(LAYOUT_INFLATER_SERVICE);
+
+    }
+
+    private void inflateEditRow(String name) {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(this.LAYOUT_INFLATER_SERVICE);
+        final View rowView = inflater.inflate(R.layout.new_set, null);
+        final TextView set = (TextView) rowView.findViewById(R.id.textView1);
+        final EditText weight = (EditText) rowView.findViewById(R.id.editText1);
+        final EditText reps = (EditText) rowView.findViewById(R.id.editText2);
+        mContainerView.addView(rowView, mContainerView.getChildCount() - 2);
+
+        Toast.makeText(EditorActivity.this, "Add set", Toast.LENGTH_SHORT).show();
+    }
+
+    public void removeSet(View view) {
+        Toast.makeText(EditorActivity.this, "Remove set", Toast.LENGTH_SHORT).show();
+        mContainerView.removeView((View) view.getParent());
+    }
+
     private void insertNote(String noteText) {
         ContentValues values = new ContentValues();
         values.put(DBOpenHelper.NOTE_TEXT, noteText);
@@ -136,3 +164,7 @@ public class EditorActivity extends ActionBarActivity {
     }
 
 }
+
+
+
+
