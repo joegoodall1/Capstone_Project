@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -131,24 +130,27 @@ public class EditorActivity extends ActionBarActivity {
 
     public void addSet(View view) {
 
-        inflateEditRow(LAYOUT_INFLATER_SERVICE);
-
-    }
-
-    private void inflateEditRow(String name) {
+        //inflateEditRow(LAYOUT_INFLATER_SERVICE);
         LayoutInflater inflater = (LayoutInflater) getSystemService(this.LAYOUT_INFLATER_SERVICE);
         final View rowView = inflater.inflate(R.layout.new_set, null);
-        final TextView set = (TextView) rowView.findViewById(R.id.textView1);
+        /*final TextView set = (TextView) rowView.findViewById(R.id.textView1);
         final EditText weight = (EditText) rowView.findViewById(R.id.editText1);
-        final EditText reps = (EditText) rowView.findViewById(R.id.editText2);
+        final EditText reps = (EditText) rowView.findViewById(R.id.editText2);*/
         mContainerView.addView(rowView, mContainerView.getChildCount());
 
         Toast.makeText(EditorActivity.this, "Add set", Toast.LENGTH_SHORT).show();
     }
 
+
+
     public void removeSet(View view) {
         Toast.makeText(EditorActivity.this, "Remove set", Toast.LENGTH_SHORT).show();
-        mContainerView.removeView((View) view.getParent());
+        LinearLayout ll = (LinearLayout) findViewById(R.id.new_set_layout);
+        //final View rowView = inflater.inflate(R.layout.new_set, null);
+        /*final TextView set = (TextView) rowView.findViewById(R.id.textView1);
+        final EditText weight = (EditText) rowView.findViewById(R.id.editText1);
+        final EditText reps = (EditText) rowView.findViewById(R.id.editText2);*/
+        mContainerView.removeView(ll);
     }
 
     private void insertNote(String noteText) {
