@@ -73,38 +73,21 @@
 
             <EditText
                 android:layout_width="0dp"
+                android:inputType="phone"
+                android:digits="1234567890"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
 
             <EditText
                 android:layout_width="0dp"
+                android:inputType="phone"
+                android:digits="1234567890"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
 
         </LinearLayout>
 
-            <!--<LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Set 2:"
-                    android:layout_weight="1"/>
-
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-
-            </LinearLayout>-->
         </LinearLayout>
 
         <LinearLayout
