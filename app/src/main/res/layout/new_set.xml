@@ -16,6 +16,7 @@
     <EditText
         android:id="@+id/editText1"
         android:layout_width="0dp"
+        android:maxLength="3"
         android:inputType="phone"
         android:digits="1234567890"
         android:layout_height="wrap_content"
@@ -24,6 +25,7 @@
     <EditText
         android:id="@+id/editText2"
         android:layout_width="0dp"
+        android:maxLength="2"
         android:inputType="phone"
         android:digits="1234567890"
         android:layout_height="wrap_content"
