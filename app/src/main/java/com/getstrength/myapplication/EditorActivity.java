@@ -1,6 +1,7 @@
 package com.getstrength.myapplication;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -24,7 +26,8 @@ public class EditorActivity extends ActionBarActivity {
     private String noteFilter;
     private String oldText;
     private LinearLayout mContainerView;
-
+    private TextView setNumber;
+    private int num = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class EditorActivity extends ActionBarActivity {
 
         editor = (EditText) findViewById(R.id.editText);
         mContainerView = (LinearLayout) findViewById(R.id.parentView);
+        setNumber = (TextView) findViewById(R.id.textView2);
 
         Intent intent = getIntent();
 
@@ -129,16 +133,19 @@ public class EditorActivity extends ActionBarActivity {
     }
 
     public void addSet(View view) {
-        LayoutInflater inflater = (LayoutInflater) getSystemService(this.LAYOUT_INFLATER_SERVICE);
-        final View rowView = inflater.inflate(R.layout.new_set, null);
+        num++;
+        LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final LinearLayout rowView = (LinearLayout) inflater.inflate(R.layout.new_set, null);
+        TextView setNumber2 = (TextView) rowView.findViewById(R.id.textView3);
+        setNumber2.setText("Set " + num + ":");
         mContainerView.addView(rowView, mContainerView.getChildCount());
     }
 
-
-
     public void removeSet(View view) {
-        LinearLayout ll = (LinearLayout) findViewById(R.id.new_set_layout);
-        mContainerView.removeView(ll);
+        mContainerView.removeViewAt(num - 1);
+        if (num > 1) {
+            num--;
+        }
     }
 
     private void insertNote(String noteText) {
