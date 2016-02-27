@@ -6,7 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,8 +19,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.getstrength.myapplication.model.Exercise;
 
-public class EditorActivity extends ActionBarActivity {
+import java.util.UUID;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
+
+
+public class EditorActivity extends AppCompatActivity {
 
     private String action;
     private EditText editor;
@@ -28,11 +37,38 @@ public class EditorActivity extends ActionBarActivity {
     private LinearLayout mContainerView;
     private TextView setNumber;
     private int num = 1;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
+
+        //Configure Realm for the application
+        RealmConfiguration config = new RealmConfiguration.Builder(this)
+                .name("exerciseData.realm")
+                .build();
+
+
+        //Make this Realm the default
+        Realm.setDefaultConfiguration(config);
+
+        realm = Realm.getDefaultInstance();
+
+        //create some tasks
+        realm.beginTransaction();
+        Exercise t = realm.createObject(Exercise.class);
+        t.setId(UUID.randomUUID().toString());
+        t.setReps(10);
+        t.setWeight(100);
+        t.setSets(3);
+        t.setExerciseName("Bench press");
+        realm.commitTransaction();
+
+        RealmResults<Exercise> exercises = realm.allObjects(Exercise.class);
+        for (Exercise exercise : exercises) {
+            Log.d("Hello", String.format("ID: %s, Reps: %s, Weight: %s, Sets: %s, Exercise: %s", exercise.getId(), exercise.getReps(), exercise.getWeight(), exercise.getSets(), exercise.getExerciseName()));
+        }
 
         editor = (EditText) findViewById(R.id.editText);
         mContainerView = (LinearLayout) findViewById(R.id.parentView);
@@ -58,11 +94,11 @@ public class EditorActivity extends ActionBarActivity {
         }
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
-// Create an ArrayAdapter using the string array and a default spinner layout
+        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.planets_array, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
+        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
+        // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
     }
 
