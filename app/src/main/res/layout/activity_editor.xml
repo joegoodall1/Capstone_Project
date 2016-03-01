@@ -64,9 +64,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <!--
-                        <include android:id="@+id/textView1" layout="@layout/new_set" />
-            -->
 
             <TextView
                 android:layout_width="0dp"
@@ -81,6 +78,7 @@
                 android:inputType="phone"
                 android:digits="1234567890"
                 android:maxLength="3"
+                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
 
@@ -88,6 +86,7 @@
                 android:layout_width="0dp"
                 android:inputType="phone"
                 android:maxLength="2"
+                android:gravity="center"
                 android:digits="1234567890"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
