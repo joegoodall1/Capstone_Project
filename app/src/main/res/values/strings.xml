@@ -42,6 +42,11 @@
     <string name="note">Note</string>
     <string name="enter_note_here">Enter note here</string>
 
+    <string name="date">Select date</string>
+
+    <string name="set">Set 1:</string>
+
+
     <!-- Content Description for images -->
     <string name="desc_google_icon">Google Logo</string>
 
