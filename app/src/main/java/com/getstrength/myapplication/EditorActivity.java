@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.getstrength.myapplication.model.Exercise;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -45,16 +46,21 @@ public class EditorActivity extends AppCompatActivity {
     private Realm realm;
     private Date date;
     private String spinnerString;
+    private EditText mWeight1;
+    private EditText mReps1;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_editor);
 
         //Configure Realm for the application
         RealmConfiguration config = new RealmConfiguration.Builder(this)
                 .name("exerciseData.realm")
-               /* .deleteRealmIfMigrationNeeded()*/
+                /*.deleteRealmIfMigrationNeeded()*/
                 .build();
 
         //Make this Realm the default
@@ -66,6 +72,11 @@ public class EditorActivity extends AppCompatActivity {
         editor = (EditText) findViewById(R.id.datePicker);
         mContainerView = (LinearLayout) findViewById(R.id.parentView);
         setNumber = (TextView) findViewById(R.id.textView2);
+        mWeight1 = (EditText) findViewById(R.id.wt1);
+        mReps1 = (EditText) findViewById(R.id.reps1);
+
+
+
 
         Intent intent = getIntent();
 
@@ -107,7 +118,6 @@ public class EditorActivity extends AppCompatActivity {
         });
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (action.equals(Intent.ACTION_EDIT)) {
@@ -115,8 +125,6 @@ public class EditorActivity extends AppCompatActivity {
         }
         return true;
     }
-
-
 
     public void addSet(View view) {
         num++;
@@ -128,8 +136,8 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     public void removeSet(View view) {
-        mContainerView.removeViewAt(num - 1);
         if (num > 1) {
+            mContainerView.removeViewAt(num - 1);
             num--;
         }
     }
@@ -159,23 +167,33 @@ public class EditorActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //create some tasks
-        realm.beginTransaction();
-        Exercise t = realm.createObject(Exercise.class);
-        t.setId(UUID.randomUUID().toString());
-        t.setReps(10);
-        t.setWeight(70);
-        t.setSets(2);
-        t.setDate(dateToStr);
-        t.setExerciseName(spinnerString);
-        realm.commitTransaction();
+        String setWtValue = mWeight1.getText().toString();
+        String setRepsValue = mReps1.getText().toString();
 
-        RealmResults<Exercise> exercises = realm.allObjects(Exercise.class);
-        for (Exercise exercise : exercises) {
-            Log.d("Hello", String.format("ID: %s, Date: %s, Reps: %s, Weight: %s, Sets: %s, Exercise: %s", exercise.getId(), exercise.getDate(), exercise.getReps(), exercise.getWeight(), exercise.getSets(), exercise.getExerciseName()));
+        if (setWtValue.matches("")) {
+            Toast.makeText(EditorActivity.this, "Weight needs to be entered", Toast.LENGTH_SHORT).show();
+        } else if (setRepsValue.matches("")) {
+            Toast.makeText(EditorActivity.this, "Reps needs to be entered", Toast.LENGTH_SHORT).show();
+        } else {
+            int setRepsNum = Integer.parseInt(setRepsValue);
+            int setWtNum = Integer.parseInt(setWtValue);
+
+            realm.beginTransaction();
+            Exercise t = realm.createObject(Exercise.class);
+            t.setId(UUID.randomUUID().toString());
+            t.setReps(setRepsNum);
+            t.setWeight(setWtNum);
+            t.setSets(num);
+            t.setDate(dateToStr);
+            t.setExerciseName(spinnerString);
+            realm.commitTransaction();
+
+            RealmResults<Exercise> exercises = realm.allObjects(Exercise.class);
+            for (Exercise exercise : exercises) {
+                Log.d("Hello", String.format("ID: %s, Date: %s, Reps: %s, Weight: %s, Sets: %s, Exercise: %s", exercise.getId(), exercise.getDate(), exercise.getReps(), exercise.getWeight(), exercise.getSets(), exercise.getExerciseName()));
+            }
         }
     }
-
-
 }
 
 

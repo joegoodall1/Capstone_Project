@@ -69,14 +69,14 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="weight"
+                android:text="@string/weight"
                 android:layout_weight="1"
                 android:textAlignment="center"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="reps"
+                android:text="@string/reps"
                 android:layout_weight="1"
                 android:textAlignment="center"/>
 
@@ -104,6 +104,7 @@
 
 
             <EditText
+                android:id="@+id/wt1"
                 android:layout_width="0dp"
                 android:inputType="phone"
                 android:digits="1234567890"
@@ -114,6 +115,7 @@
                 android:layout_weight="1"/>
 
             <EditText
+                android:id="@+id/reps1"
                 android:layout_width="0dp"
                 android:inputType="phone"
                 android:maxLength="2"
