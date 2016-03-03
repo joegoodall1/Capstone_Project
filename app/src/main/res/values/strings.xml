@@ -2,7 +2,7 @@
     <string name="app_name">StrengthTracker</string>
     <string name="sign_in_header">User Profile</string>
 
-    <string-array name="planets_array">
+    <string-array name="exercise_array">
         <item>Bench press</item>
         <item>Back squat</item>
         <item>Deadlift</item>

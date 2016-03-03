@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -31,6 +32,9 @@ import io.realm.RealmResults;
 
 public class EditorActivity extends AppCompatActivity {
 
+    Date curDate = new Date();
+    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+    String dateToStr = format.format(curDate);
     private String action;
     private EditText editor;
     private String noteFilter;
@@ -40,10 +44,7 @@ public class EditorActivity extends AppCompatActivity {
     private int num = 1;
     private Realm realm;
     private Date date;
-
-    Date curDate = new Date();
-    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-    String dateToStr = format.format(curDate);
+    private String spinnerString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,27 +62,12 @@ public class EditorActivity extends AppCompatActivity {
 
         realm = Realm.getDefaultInstance();
 
-        /*//create some tasks
-        realm.beginTransaction();
-        Exercise t = realm.createObject(Exercise.class);
-        t.setId(UUID.randomUUID().toString());
-        t.setReps(10);
-        t.setWeight(100);
-        t.setSets(3);
-        t.setExerciseName("Bench press");
-        realm.commitTransaction();*/
-
-        /*RealmResults<Exercise> exercises = realm.allObjects(Exercise.class);
-        for (Exercise exercise : exercises) {
-            Log.d("Hello", String.format("ID: %s, Reps: %s, Weight: %s, Sets: %s, Exercise: %s", exercise.getId(), exercise.getReps(), exercise.getWeight(), exercise.getSets(), exercise.getExerciseName()));
-        }*/
 
         editor = (EditText) findViewById(R.id.datePicker);
         mContainerView = (LinearLayout) findViewById(R.id.parentView);
         setNumber = (TextView) findViewById(R.id.textView2);
 
         Intent intent = getIntent();
-
 
 
         Uri uri = intent.getParcelableExtra(NotesProvider.CONTENT_ITEM_TYPE);
@@ -101,24 +87,24 @@ public class EditorActivity extends AppCompatActivity {
             editor.requestFocus();
         }
 
-        /*final int abTitleId = getResources().getIdentifier(DateToStr, "id", getPackageName());
-        findViewById(abTitleId).setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                //Do something
-            }
-        });*/
-
-
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.planets_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.exercise_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spinnerString = spinner.getSelectedItem().toString();
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
 
@@ -180,7 +166,7 @@ public class EditorActivity extends AppCompatActivity {
         t.setWeight(70);
         t.setSets(2);
         t.setDate(dateToStr);
-        t.setExerciseName("deadlift");
+        t.setExerciseName(spinnerString);
         realm.commitTransaction();
 
         RealmResults<Exercise> exercises = realm.allObjects(Exercise.class);
