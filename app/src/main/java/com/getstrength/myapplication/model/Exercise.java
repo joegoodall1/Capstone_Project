@@ -11,9 +11,18 @@ public class Exercise extends RealmObject {
     @PrimaryKey
     private String id;
     private String exerciseName;
+    private String date;
     private int sets;
     private int reps;
     private int weight;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getId() {
         return id;

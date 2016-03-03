@@ -41,6 +41,10 @@ public class EditorActivity extends AppCompatActivity {
     private Realm realm;
     private Date date;
 
+    Date curDate = new Date();
+    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+    String dateToStr = format.format(curDate);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +53,7 @@ public class EditorActivity extends AppCompatActivity {
         //Configure Realm for the application
         RealmConfiguration config = new RealmConfiguration.Builder(this)
                 .name("exerciseData.realm")
+               /* .deleteRealmIfMigrationNeeded()*/
                 .build();
 
         //Make this Realm the default
@@ -77,15 +82,13 @@ public class EditorActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        Date curDate = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        String DateToStr = format.format(curDate);
+
 
         Uri uri = intent.getParcelableExtra(NotesProvider.CONTENT_ITEM_TYPE);
 
         if (uri == null) {
             action = Intent.ACTION_INSERT;
-            setTitle(DateToStr);
+            setTitle(dateToStr);
         } else {
             action = Intent.ACTION_EDIT;
             noteFilter = DBOpenHelper.NOTE_ID + "=" + uri.getLastPathSegment();
@@ -115,6 +118,7 @@ public class EditorActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+
     }
 
 
@@ -127,25 +131,6 @@ public class EditorActivity extends AppCompatActivity {
     }
 
 
-
-    /*private void deleteNote() {
-        getContentResolver().delete(NotesProvider.CONTENT_URI,
-                noteFilter, null);
-        Toast.makeText(this, getString(R.string.note_deleted),
-                Toast.LENGTH_SHORT).show();
-        setResult(RESULT_OK);
-        finish();
-    }*/
-
-
-
-    /*private void updateNote(String noteText) {
-        ContentValues values = new ContentValues();
-        values.put(DBOpenHelper.NOTE_TEXT, noteText);
-        getContentResolver().update(NotesProvider.CONTENT_URI, values, noteFilter, null);
-        Toast.makeText(this, getString(R.string.note_updated), Toast.LENGTH_SHORT).show();
-        setResult(RESULT_OK);
-    }*/
 
     public void addSet(View view) {
         num++;
@@ -174,6 +159,7 @@ public class EditorActivity extends AppCompatActivity {
                         date = checkedCalendar.getTime();
                         action = Intent.ACTION_INSERT;
                         setTitle(DateFormatter.convertDateToString(date));
+                        dateToStr = DateFormatter.convertDateToString(date);
                     }
                 },
                 now.get(Calendar.YEAR),
@@ -191,14 +177,15 @@ public class EditorActivity extends AppCompatActivity {
         Exercise t = realm.createObject(Exercise.class);
         t.setId(UUID.randomUUID().toString());
         t.setReps(10);
-        t.setWeight(75);
+        t.setWeight(70);
         t.setSets(2);
+        t.setDate(dateToStr);
         t.setExerciseName("deadlift");
         realm.commitTransaction();
 
         RealmResults<Exercise> exercises = realm.allObjects(Exercise.class);
         for (Exercise exercise : exercises) {
-            Log.d("Hello", String.format("ID: %s, Reps: %s, Weight: %s, Sets: %s, Exercise: %s", exercise.getId(), exercise.getReps(), exercise.getWeight(), exercise.getSets(), exercise.getExerciseName()));
+            Log.d("Hello", String.format("ID: %s, Date: %s, Reps: %s, Weight: %s, Sets: %s, Exercise: %s", exercise.getId(), exercise.getDate(), exercise.getReps(), exercise.getWeight(), exercise.getSets(), exercise.getExerciseName()));
         }
     }
 
