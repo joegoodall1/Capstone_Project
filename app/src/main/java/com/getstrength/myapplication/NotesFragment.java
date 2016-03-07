@@ -59,7 +59,7 @@ public class NotesFragment extends Fragment implements LoaderManager.LoaderCallb
 
     private void insertNote(String noteText) {
         ContentValues values = new ContentValues();
-        values.put(DBOpenHelper.NOTE_TEXT, noteText);
+        values.put(DBOpenHelper.DATE, noteText);
         Uri noteUri = super.getActivity().getContentResolver().insert(NotesProvider.CONTENT_URI,
                 values);
         Log.d("MainActivity", "Inserted note " + noteUri.getLastPathSegment());

@@ -52,7 +52,7 @@ public class NotesActivity extends ActionBarActivity
 
     private void insertNote(String noteText) {
         ContentValues values = new ContentValues();
-        values.put(DBOpenHelper.NOTE_TEXT, noteText);
+        values.put(DBOpenHelper.DATE, noteText);
         Uri noteUri = getContentResolver().insert(NotesProvider.CONTENT_URI,
                 values);
         Log.d("MainActivity", "Inserted note " + noteUri.getLastPathSegment());

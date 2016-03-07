@@ -1,14 +1,14 @@
 package com.getstrength.myapplication;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,17 +18,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.getstrength.myapplication.model.Exercise;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.UUID;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
-import io.realm.RealmResults;
 
 
 public class EditorActivity extends AppCompatActivity {
@@ -57,17 +53,6 @@ public class EditorActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_editor);
 
-        //Configure Realm for the application
-        RealmConfiguration config = new RealmConfiguration.Builder(this)
-                .name("exerciseData.realm")
-                /*.deleteRealmIfMigrationNeeded()*/
-                .build();
-
-        //Make this Realm the default
-        Realm.setDefaultConfiguration(config);
-
-        realm = Realm.getDefaultInstance();
-
 
         editor = (EditText) findViewById(R.id.datePicker);
         mContainerView = (LinearLayout) findViewById(R.id.parentView);
@@ -76,10 +61,7 @@ public class EditorActivity extends AppCompatActivity {
         mReps1 = (EditText) findViewById(R.id.reps1);
 
 
-
-
         Intent intent = getIntent();
-
 
         Uri uri = intent.getParcelableExtra(NotesProvider.CONTENT_ITEM_TYPE);
 
@@ -88,12 +70,12 @@ public class EditorActivity extends AppCompatActivity {
             setTitle(dateToStr);
         } else {
             action = Intent.ACTION_EDIT;
-            noteFilter = DBOpenHelper.NOTE_ID + "=" + uri.getLastPathSegment();
+            noteFilter = DBOpenHelper.EXERCISE_ID + "=" + uri.getLastPathSegment();
 
             Cursor cursor = getContentResolver().query(uri,
                     DBOpenHelper.ALL_COLUMNS, noteFilter, null, null);
             cursor.moveToFirst();
-            oldText = cursor.getString(cursor.getColumnIndex(DBOpenHelper.NOTE_TEXT));
+            oldText = cursor.getString(cursor.getColumnIndex(DBOpenHelper.DATE));
             editor.setText(oldText);
             editor.requestFocus();
         }
@@ -118,13 +100,7 @@ public class EditorActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (action.equals(Intent.ACTION_EDIT)) {
-            getMenuInflater().inflate(R.menu.menu_editor, menu);
-        }
-        return true;
-    }
+
 
     public void addSet(View view) {
         num++;
@@ -165,34 +141,71 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            case R.id.action_delete:
+                deleteNote();
+                break;
+        }
+
+        return true;
+    }
+
+    private void insertNote(String noteText) {
+        ContentValues values = new ContentValues();
+        values.put(DBOpenHelper.DATE, noteText);
+        getContentResolver().insert(NotesProvider.CONTENT_URI, values);
+        setResult(RESULT_OK);
+    }
+
+    private void deleteNote() {
+        getContentResolver().delete(NotesProvider.CONTENT_URI,
+                noteFilter, null);
+        Toast.makeText(this, getString(R.string.note_deleted),
+                Toast.LENGTH_SHORT).show();
+        setResult(RESULT_OK);
+        finish();
+    }
+
+    private void updateNote(String noteText) {
+        ContentValues values = new ContentValues();
+        values.put(DBOpenHelper.DATE, noteText);
+        getContentResolver().update(NotesProvider.CONTENT_URI, values, noteFilter, null);
+        Toast.makeText(this, getString(R.string.note_updated), Toast.LENGTH_SHORT).show();
+        setResult(RESULT_OK);
+    }
+
+    @Override
     public void onBackPressed() {
         //create some tasks
         String setWtValue = mWeight1.getText().toString();
         String setRepsValue = mReps1.getText().toString();
 
-        if (setWtValue.matches("")) {
-            Toast.makeText(EditorActivity.this, "Weight needs to be entered", Toast.LENGTH_SHORT).show();
-        } else if (setRepsValue.matches("")) {
-            Toast.makeText(EditorActivity.this, "Reps needs to be entered", Toast.LENGTH_SHORT).show();
-        } else {
-            int setRepsNum = Integer.parseInt(setRepsValue);
-            int setWtNum = Integer.parseInt(setWtValue);
+        switch (action) {
+            case Intent.ACTION_INSERT:
+                if (dateToStr.length() == 0) {
+                    setResult(RESULT_CANCELED);
+                } else {
+                    insertNote(dateToStr);
+                }
+                break;
+            case Intent.ACTION_EDIT:
+                if (dateToStr.length() == 0) {
+                    deleteNote();
+                } else if (oldText.equals(dateToStr)) {
+                    setResult(RESULT_CANCELED);
+                } else {
+                    updateNote(dateToStr);
+                }
 
-            realm.beginTransaction();
-            Exercise t = realm.createObject(Exercise.class);
-            t.setId(UUID.randomUUID().toString());
-            t.setReps(setRepsNum);
-            t.setWeight(setWtNum);
-            t.setSets(num);
-            t.setDate(dateToStr);
-            t.setExerciseName(spinnerString);
-            realm.commitTransaction();
-
-            RealmResults<Exercise> exercises = realm.allObjects(Exercise.class);
-            for (Exercise exercise : exercises) {
-                Log.d("Hello", String.format("ID: %s, Date: %s, Reps: %s, Weight: %s, Sets: %s, Exercise: %s", exercise.getId(), exercise.getDate(), exercise.getReps(), exercise.getWeight(), exercise.getSets(), exercise.getExerciseName()));
-            }
         }
+        finish();
+
     }
 }
 

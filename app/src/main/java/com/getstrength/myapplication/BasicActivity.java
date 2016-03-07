@@ -27,7 +27,6 @@ public class BasicActivity extends AppCompatActivity implements OnDateSelectedLi
 
 
     private static final DateFormat FORMATTER = SimpleDateFormat.getDateInstance();
-    private static final int EDITOR_REQUEST_CODE = 1001;
 
 
     @Bind(R.id.calendarView)

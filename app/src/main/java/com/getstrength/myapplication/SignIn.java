@@ -173,7 +173,7 @@ public class SignIn extends AppCompatActivity implements
                     intent.putExtra("photo", acct.getPhotoUrl().toString());*/
                     startActivity(intent);
                 }
-            }, 3000);
+            }, 1000);
 
             Snackbar.make(findViewById(android.R.id.content), "Successfully signed in!", Snackbar.LENGTH_SHORT)
                     .show();
