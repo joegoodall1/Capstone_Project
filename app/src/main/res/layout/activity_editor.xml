@@ -70,6 +70,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/weight"
+                android:contentDescription="@string/weight"
                 android:layout_weight="1"
                 android:textAlignment="center"/>
 
@@ -77,6 +78,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/reps"
+                android:contentDescription="@string/reps"
                 android:layout_weight="1"
                 android:textAlignment="center"/>
 
