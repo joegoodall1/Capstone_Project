@@ -63,7 +63,7 @@ public class EditorActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        Uri uri = intent.getParcelableExtra(NotesProvider.CONTENT_ITEM_TYPE);
+        Uri uri = intent.getParcelableExtra(ExerciseProvider.URL);
 
         if (uri == null) {
             action = Intent.ACTION_INSERT;
@@ -159,12 +159,12 @@ public class EditorActivity extends AppCompatActivity {
     private void insertNote(String noteText) {
         ContentValues values = new ContentValues();
         values.put(DBOpenHelper.DATE, noteText);
-        getContentResolver().insert(NotesProvider.CONTENT_URI, values);
+        getContentResolver().insert(ExerciseProvider.CONTENT_URI, values);
         setResult(RESULT_OK);
     }
 
     private void deleteNote() {
-        getContentResolver().delete(NotesProvider.CONTENT_URI,
+        getContentResolver().delete(ExerciseProvider.CONTENT_URI,
                 noteFilter, null);
         Toast.makeText(this, getString(R.string.note_deleted),
                 Toast.LENGTH_SHORT).show();
@@ -175,7 +175,7 @@ public class EditorActivity extends AppCompatActivity {
     private void updateNote(String noteText) {
         ContentValues values = new ContentValues();
         values.put(DBOpenHelper.DATE, noteText);
-        getContentResolver().update(NotesProvider.CONTENT_URI, values, noteFilter, null);
+        getContentResolver().update(ExerciseProvider.CONTENT_URI, values, noteFilter, null);
         Toast.makeText(this, getString(R.string.note_updated), Toast.LENGTH_SHORT).show();
         setResult(RESULT_OK);
     }

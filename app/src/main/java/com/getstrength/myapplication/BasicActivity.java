@@ -1,82 +1,74 @@
 package com.getstrength.myapplication;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
 import android.view.View;
-import android.widget.TextView;
 
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
-import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
-
-/**
- * Shows off the most basic usage
- */
-public class BasicActivity extends AppCompatActivity implements OnDateSelectedListener, OnMonthChangedListener {
-
-
-    private static final DateFormat FORMATTER = SimpleDateFormat.getDateInstance();
-
-
-    @Bind(R.id.calendarView)
-    MaterialCalendarView widget;
-
-
-    @Bind(R.id.textView)
-    TextView textView;
-
+public class BasicActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_basic);
-        ButterKnife.bind(this);
+        setContentView(R.layout.activity_main_1);
 
-        widget.setOnDateChangedListener(this);
-        widget.setOnMonthChangedListener(this);
-
-        //Setup initial text
-        textView.setText(getSelectedDatesString());
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BasicActivity.this, EditorActivity.class);
-                startActivity(intent);
-            }
-        });
+        ExerciseStore.initialise(this);
     }
-
 
     @Override
-    public void onDateSelected(@NonNull MaterialCalendarView widget, @Nullable CalendarDay date, boolean selected) {
-        textView.setText(getSelectedDatesString());
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 
-
-    @Override
-    public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
-        //noinspection ConstantConditions
-        getSupportActionBar().setTitle(FORMATTER.format(date.getDate()));
+    public void onClickAddName(View view) {
+        testStoreExercises();
+        testGetExerciseDates();
+        testGetExercises();
     }
 
+    private void testStoreExercises() {
 
-    private String getSelectedDatesString() {
-        CalendarDay date = widget.getSelectedDate();
-        if (date == null) {
-            return "No Selection";
+        List<ExerciseStore.Exercise> exercises = new ArrayList<>();
+
+        exercises.add(new ExerciseStore.Exercise(1, 2, 3, "26/03/2016", "deadlift"));
+        exercises.add(new ExerciseStore.Exercise(2, 3, 4, "26/03/2016", "benchpress"));
+        exercises.add(new ExerciseStore.Exercise(5, 6, 7, "26/03/2016", "squat"));
+        exercises.add(new ExerciseStore.Exercise(8, 9, 10, "26/03/2016", "burpee"));
+
+        exercises.add(new ExerciseStore.Exercise(1, 2, 3, "27/03/2016", "deadlift"));
+        exercises.add(new ExerciseStore.Exercise(2, 3, 4, "27/03/2016", "benchpress"));
+        exercises.add(new ExerciseStore.Exercise(5, 6, 7, "27/03/2016", "squat"));
+        exercises.add(new ExerciseStore.Exercise(8, 9, 10, "27/03/2016", "burpee"));
+
+        exercises.add(new ExerciseStore.Exercise(1, 2, 3, "28/03/2016", "deadlift"));
+        exercises.add(new ExerciseStore.Exercise(2, 3, 4, "28/03/2016", "benchpress"));
+        exercises.add(new ExerciseStore.Exercise(5, 6, 7, "28/03/2016", "squat"));
+        exercises.add(new ExerciseStore.Exercise(8, 9, 10, "28/03/2016", "burpee"));
+
+        boolean success = ExerciseStore.getInstance().storeExercises(exercises);
+        Log.i("testStoreExercises", "success = " + success);
+    }
+
+    private void testGetExerciseDates() {
+
+        List<String> dates = ExerciseStore.getInstance().getExerciseDates();
+
+        for (String date : dates) {
+            Log.i("testGetExerciseDates", date);
         }
-        return FORMATTER.format(date.getDate());
+    }
+
+    private void testGetExercises() {
+
+        List<ExerciseStore.Exercise> exercises = ExerciseStore.getInstance().getExercises("26/03/2016");
+
+        for (ExerciseStore.Exercise exercise : exercises) {
+            Log.i("testGetExercises", exercise.toString());
+        }
     }
 }
-

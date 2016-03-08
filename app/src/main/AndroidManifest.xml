@@ -30,18 +30,15 @@
 
         </activity>
 
-        <provider
-            android:name="com.getstrength.myapplication.NotesProvider"
-            android:authorities="com.getstrength.myapplication.notesprovider"
-            android:exported="false"/>
-
         <activity
-            android:name="com.getstrength.myapplication.NotesActivity"
-            android:label="History"
-            android:parentActivityName="com.getstrength.myapplication.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.getstrength.myapplication.MainActivity"/>
+            android:name=".BasicActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>-->
         </activity>
 
         <activity
@@ -49,10 +46,10 @@
             android:label="@string/title_activity_editor"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"
-            android:parentActivityName="com.getstrength.myapplication.NotesActivity">
+            android:parentActivityName="com.getstrength.myapplication.BasicActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.getstrength.myapplication.NotesActivity"
+                android:value="com.getstrength.myapplication.BasicActivity"
                 android:launchMode="singleTop"/>
         </activity>
 
@@ -61,10 +58,11 @@
             android:label="@string/sign_in_header">
         </activity>
 
-        <activity
-            android:name="com.getstrength.myapplication.BasicActivity"
-            android:label="@string/sign_in_header">
-        </activity>
+        <provider
+            android:authorities="com.getstrength.provider.exercises"
+            android:name=".ExerciseProvider">
+
+        </provider>
 
 
     </application>

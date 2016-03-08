@@ -25,7 +25,7 @@
     <string name="sign_out">Sign Out</string>
     <string name="disconnect">Disconnect</string>
     <string name="loading">Loading…</string>
-    <string name="title_text">StrengthTracker</string>
+    <string name="title_text">Strength Tracker</string>
 
     <string name="create_sample_data">Create sample data</string>
     <string name="delete_all_notes">Delete all notes</string>
