@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,8 +25,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import io.realm.Realm;
-
 
 public class EditorActivity extends AppCompatActivity {
 
@@ -39,7 +38,6 @@ public class EditorActivity extends AppCompatActivity {
     private LinearLayout mContainerView;
     private TextView setNumber;
     private int num = 1;
-    private Realm realm;
     private Date date;
     private String spinnerString;
     private EditText mWeight1;
@@ -100,6 +98,14 @@ public class EditorActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_editor, menu);
+
+        return true;
+    }
+
 
 
     public void addSet(View view) {
@@ -148,7 +154,7 @@ public class EditorActivity extends AppCompatActivity {
             case android.R.id.home:
                 onBackPressed();
                 break;
-            case R.id.action_delete:
+            case R.id.content_save:
                 deleteNote();
                 break;
         }
@@ -166,7 +172,7 @@ public class EditorActivity extends AppCompatActivity {
     private void deleteNote() {
         getContentResolver().delete(ExerciseProvider.CONTENT_URI,
                 noteFilter, null);
-        Toast.makeText(this, getString(R.string.note_deleted),
+        Toast.makeText(this, getString(R.string.exercise_saved),
                 Toast.LENGTH_SHORT).show();
         setResult(RESULT_OK);
         finish();
@@ -182,6 +188,7 @@ public class EditorActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
         //create some tasks
         String setWtValue = mWeight1.getText().toString();
         String setRepsValue = mReps1.getText().toString();

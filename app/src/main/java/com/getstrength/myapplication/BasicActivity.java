@@ -71,4 +71,6 @@ public class BasicActivity extends Activity {
             Log.i("testGetExercises", exercise.toString());
         }
     }
+
+
 }
