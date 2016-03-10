@@ -59,7 +59,6 @@ public class EditorActivity extends AppCompatActivity {
         mContainerView = (LinearLayout) findViewById(R.id.parentView);
 
 
-
         Intent intent = getIntent();
 
         Uri uri = intent.getParcelableExtra(ExerciseProvider.URL);
