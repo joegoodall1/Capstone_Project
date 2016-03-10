@@ -24,7 +24,9 @@ public class ExerciseStore {
     }
 
     public static void initialise(Context context) {
-        mInstance = new ExerciseStore(context);
+        if (mInstance == null) {
+            mInstance = new ExerciseStore(context);
+        }
     }
 
     public static ExerciseStore getInstance() {
