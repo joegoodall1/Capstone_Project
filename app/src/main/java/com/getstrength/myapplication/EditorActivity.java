@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -41,7 +40,7 @@ public class EditorActivity extends AppCompatActivity {
     private String oldText;
     private LinearLayout mContainerView;
     TextView setNumber;
-    private int num = 1;
+    private int num = 0;
     private Date date;
     String spinnerString;
 
@@ -96,6 +95,8 @@ public class EditorActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        addSet(null);
     }
 
     @Override
@@ -176,46 +177,18 @@ public class EditorActivity extends AppCompatActivity {
         for (int i = 0; i < num; i++) {
             View child = mContainerView.getChildAt(i);
 
-            if (!(child instanceof ViewGroup)) {
-                continue;
-            }
+            EditText weight1 = (EditText) child.findViewById(R.id.editText1);
+            EditText reps1 = (EditText) child.findViewById(R.id.editText2);
 
-            ViewGroup container = (ViewGroup) child;
+            //create some tasks
 
-            container.getChildAt(i);
+            String setRepsValue = reps1.getText().toString();
+            int setRepsNum = Integer.parseInt(setRepsValue);
 
-            if (i < 1) {
+            String setWtValue = weight1.getText().toString();
+            int setWtNum = Integer.parseInt(setWtValue);
 
-                EditText weight1 = (EditText) findViewById(R.id.wt1);
-                EditText reps1 = (EditText) findViewById(R.id.reps1);
-
-                //create some tasks
-
-                String setRepsValue = reps1.getText().toString();
-                int setRepsNum = Integer.parseInt(setRepsValue);
-
-                String setWtValue = weight1.getText().toString();
-                int setWtNum = Integer.parseInt(setWtValue);
-
-
-                exercises.add(new Exercise(i + 1, setRepsNum, setWtNum, dateToStr, spinnerString));
-            } else {
-                EditText weight1 = (EditText) mContainerView.findViewById(R.id.editText1);
-                EditText reps1 = (EditText) mContainerView.findViewById(R.id.editText2);
-
-                //create some tasks
-
-                String setRepsValue = reps1.getText().toString();
-                int setRepsNum = Integer.parseInt(setRepsValue);
-
-                String setWtValue = weight1.getText().toString();
-                int setWtNum = Integer.parseInt(setWtValue);
-
-
-                exercises.add(new Exercise(i + 1, setRepsNum, setWtNum, dateToStr, spinnerString));
-            }
-
-
+            exercises.add(new Exercise(i + 1, setRepsNum, setWtNum, dateToStr, spinnerString));
         }
 
         boolean success = ExerciseStore.getInstance().storeExercises(exercises);

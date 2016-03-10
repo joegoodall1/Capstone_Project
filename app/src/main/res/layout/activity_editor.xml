@@ -92,42 +92,6 @@
             android:animateLayoutChanges="true"
             android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:layout_width="0dp"
-                android:id="@+id/textView2"
-                android:layout_height="wrap_content"
-                android:text="@string/set"
-                android:layout_weight="1"/>
-
-
-            <EditText
-                android:id="@+id/wt1"
-                android:layout_width="0dp"
-                android:inputType="phone"
-                android:digits="1234567890"
-                android:maxLength="3"
-                android:gravity="center"
-                android:focusable="true"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-
-            <EditText
-                android:id="@+id/reps1"
-                android:layout_width="0dp"
-                android:inputType="phone"
-                android:maxLength="2"
-                android:gravity="center"
-                android:digits="1234567890"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
 
 
         </LinearLayout>
