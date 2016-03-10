@@ -1,3 +1,4 @@
+/*
 package com.getstrength.myapplication;
 
 import android.app.Activity;
@@ -71,6 +72,5 @@ public class BasicActivity extends Activity {
             Log.i("testGetExercises", exercise.toString());
         }
     }
-
-
 }
+*/

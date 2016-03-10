@@ -163,10 +163,10 @@ public class MainActivity extends AppCompatActivity
             Intent openClockIntent = new Intent(AlarmClock.ACTION_SET_TIMER);
             openClockIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(openClockIntent);
-        } else if (id == R.id.nav_settings) {
+        } /*else if (id == R.id.nav_settings) {
             Intent intent = new Intent(MainActivity.this, BasicActivity.class);
             startActivity(intent);
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

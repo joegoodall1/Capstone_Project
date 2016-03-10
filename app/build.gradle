@@ -42,8 +42,8 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.android.support:support-v4:23.2.0'
-    compile 'io.realm:realm-android:0.87.5'
     compile 'com.wdullaer:materialdatetimepicker:2.2.0'
+    compile 'net.danlew:android.joda:2.9.2'
 
 
 }

@@ -1,16 +1,17 @@
 package com.getstrength.myapplication;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -19,11 +20,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.getstrength.myapplication.model.Exercise;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 public class EditorActivity extends AppCompatActivity {
@@ -36,13 +40,10 @@ public class EditorActivity extends AppCompatActivity {
     private String noteFilter;
     private String oldText;
     private LinearLayout mContainerView;
-    private TextView setNumber;
+    TextView setNumber;
     private int num = 1;
     private Date date;
-    private String spinnerString;
-    private EditText mWeight1;
-    private EditText mReps1;
-
+    String spinnerString;
 
 
     @Override
@@ -51,12 +52,12 @@ public class EditorActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_editor);
 
+        ExerciseStore.initialise(this);
+
 
         editor = (EditText) findViewById(R.id.datePicker);
         mContainerView = (LinearLayout) findViewById(R.id.parentView);
-        setNumber = (TextView) findViewById(R.id.textView2);
-        mWeight1 = (EditText) findViewById(R.id.wt1);
-        mReps1 = (EditText) findViewById(R.id.reps1);
+
 
 
         Intent intent = getIntent();
@@ -100,13 +101,9 @@ public class EditorActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.menu_editor, menu);
-
         return true;
     }
-
-
 
     public void addSet(View view) {
         num++;
@@ -124,7 +121,7 @@ public class EditorActivity extends AppCompatActivity {
         }
     }
 
-    public void onClick1(View view) {
+    public void onSelectDate(View view) {
         Calendar now = Calendar.getInstance();
         final DatePickerDialog d = DatePickerDialog.newInstance(
                 new DatePickerDialog.OnDateSetListener() {
@@ -155,64 +152,93 @@ public class EditorActivity extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.content_save:
-                deleteNote();
+                contentSave();
                 break;
         }
 
         return true;
     }
 
-    private void insertNote(String noteText) {
-        ContentValues values = new ContentValues();
-        values.put(DBOpenHelper.DATE, noteText);
-        getContentResolver().insert(ExerciseProvider.CONTENT_URI, values);
-        setResult(RESULT_OK);
-    }
+    private void contentSave() {
 
-    private void deleteNote() {
-        getContentResolver().delete(ExerciseProvider.CONTENT_URI,
-                noteFilter, null);
         Toast.makeText(this, getString(R.string.exercise_saved),
                 Toast.LENGTH_SHORT).show();
         setResult(RESULT_OK);
+        testStoreExercises();
+        testGetExerciseDates();
+        testGetExercises();
         finish();
     }
 
-    private void updateNote(String noteText) {
-        ContentValues values = new ContentValues();
-        values.put(DBOpenHelper.DATE, noteText);
-        getContentResolver().update(ExerciseProvider.CONTENT_URI, values, noteFilter, null);
-        Toast.makeText(this, getString(R.string.note_updated), Toast.LENGTH_SHORT).show();
-        setResult(RESULT_OK);
-    }
+    private void testStoreExercises() {
 
-    @Override
-    public void onBackPressed() {
+        List<Exercise> exercises = new ArrayList<>();
 
-        //create some tasks
-        String setWtValue = mWeight1.getText().toString();
-        String setRepsValue = mReps1.getText().toString();
+        for (int i = 0; i < num; i++) {
+            View child = mContainerView.getChildAt(i);
 
-        switch (action) {
-            case Intent.ACTION_INSERT:
-                if (dateToStr.length() == 0) {
-                    setResult(RESULT_CANCELED);
-                } else {
-                    insertNote(dateToStr);
-                }
-                break;
-            case Intent.ACTION_EDIT:
-                if (dateToStr.length() == 0) {
-                    deleteNote();
-                } else if (oldText.equals(dateToStr)) {
-                    setResult(RESULT_CANCELED);
-                } else {
-                    updateNote(dateToStr);
-                }
+            if (!(child instanceof ViewGroup)) {
+                continue;
+            }
+
+            ViewGroup container = (ViewGroup) child;
+
+            container.getChildAt(i);
+
+            if (i < 1) {
+
+                EditText weight1 = (EditText) findViewById(R.id.wt1);
+                EditText reps1 = (EditText) findViewById(R.id.reps1);
+
+                //create some tasks
+
+                String setRepsValue = reps1.getText().toString();
+                int setRepsNum = Integer.parseInt(setRepsValue);
+
+                String setWtValue = weight1.getText().toString();
+                int setWtNum = Integer.parseInt(setWtValue);
+
+
+                exercises.add(new Exercise(i + 1, setRepsNum, setWtNum, dateToStr, spinnerString));
+            } else {
+                EditText weight1 = (EditText) mContainerView.findViewById(R.id.editText1);
+                EditText reps1 = (EditText) mContainerView.findViewById(R.id.editText2);
+
+                //create some tasks
+
+                String setRepsValue = reps1.getText().toString();
+                int setRepsNum = Integer.parseInt(setRepsValue);
+
+                String setWtValue = weight1.getText().toString();
+                int setWtNum = Integer.parseInt(setWtValue);
+
+
+                exercises.add(new Exercise(i + 1, setRepsNum, setWtNum, dateToStr, spinnerString));
+            }
+
 
         }
-        finish();
 
+        boolean success = ExerciseStore.getInstance().storeExercises(exercises);
+        Log.i("testStoreExercises", "success = " + success);
+    }
+
+    private void testGetExerciseDates() {
+
+        List<String> dates = ExerciseStore.getInstance().getExerciseDates();
+
+        for (String date : dates) {
+            Log.i("testGetExerciseDates", date);
+        }
+    }
+
+    private void testGetExercises() {
+
+        List<Exercise> exercises = ExerciseStore.getInstance().getExercises("10/03/2016");
+
+        for (Exercise exercise : exercises) {
+            Log.i("testGetExercises", exercise.toString());
+        }
     }
 }
 

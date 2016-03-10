@@ -20,11 +20,12 @@ public class SimpleWidgetProvider extends AppWidgetProvider {
 
         for (int i = 0; i < count; i++) {
             int widgetId = appWidgetIds[i];
+
             String number = String.format("%03d", (new Random().nextInt(900) + 100));
 
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                     R.layout.widget);
-            remoteViews.setTextViewText(R.id.textView, number);
+            remoteViews.setTextViewText(R.id.textViewWidget, number);
 
             Intent intent = new Intent(context, SimpleWidgetProvider.class);
             intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);

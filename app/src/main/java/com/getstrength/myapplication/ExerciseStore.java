@@ -6,40 +6,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import com.getstrength.myapplication.model.Exercise;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class ExerciseStore {
 
-    // Mock class - replace with real Exercise class in app.
-    public static class Exercise {
 
-        public int id;
-        public int sets;
-        public int reps;
-        public int weight;
-        public String date;
-        public String exercise;
-
-        public Exercise(int id, int sets, int reps, int weight, String date, String exercise) {
-            this(sets, reps, weight, date, exercise);
-            this.id = id;
-        }
-
-        public Exercise(int sets, int reps, int weight, String date, String exercise) {
-            this.sets = sets;
-            this.reps = reps;
-            this.weight = weight;
-            this.date = date;
-            this.exercise = exercise;
-        }
-
-        @Override
-        public String toString() {
-            return String.format(Locale.getDefault(), "_id=%d, Sets=%d, Reps=%d, Weight=%d, Date=%s, Exercise=%s", id, sets, reps, weight, date, exercise);
-        }
-    }
 
     private static ExerciseStore mInstance;
 
@@ -65,11 +39,11 @@ public class ExerciseStore {
             for (Exercise exercise : exercises) {
 
                 ContentValues values = new ContentValues();
-                values.put(DBOpenHelper.DATE, exercise.date);
-                values.put(DBOpenHelper.EXERCISE, exercise.exercise);
-                values.put(DBOpenHelper.SETS, exercise.sets);
-                values.put(DBOpenHelper.REPS, exercise.reps);
-                values.put(DBOpenHelper.WEIGHT, exercise.weight);
+                values.put(DBOpenHelper.DATE, exercise.getDate());
+                values.put(DBOpenHelper.EXERCISE, exercise.getExerciseName());
+                values.put(DBOpenHelper.SETS, exercise.getSets());
+                values.put(DBOpenHelper.REPS, exercise.getReps());
+                values.put(DBOpenHelper.WEIGHT, exercise.getWeight());
 
                 contentResolver.insert(ExerciseProvider.CONTENT_URI, values);
             }

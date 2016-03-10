@@ -1,20 +1,29 @@
 package com.getstrength.myapplication.model;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-
 /**
  * Created by Joe on 25/02/2016.
  */
-public class Exercise extends RealmObject {
+public class Exercise {
 
-    @PrimaryKey
-    private String id;
+    private int id;
     private String exerciseName;
     private String date;
     private int sets;
     private int reps;
     private int weight;
+
+    public Exercise(int id, int sets, int reps, int weight, String date, String exercise) {
+        this(sets, reps, weight, date, exercise);
+        this.id = id;
+    }
+
+    public Exercise(int sets, int reps, int weight, String date, String exercise) {
+        this.sets = sets;
+        this.reps = reps;
+        this.weight = weight;
+        this.date = date;
+        this.exerciseName = exercise;
+    }
 
     public String getDate() {
         return date;
@@ -24,11 +33,11 @@ public class Exercise extends RealmObject {
         this.date = date;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

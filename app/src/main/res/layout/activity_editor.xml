@@ -31,7 +31,7 @@
             android:background="@android:color/transparent"
             android:focusable="false"
             android:padding="10dp"
-            android:onClick="onClick1"/>
+            android:onClick="onSelectDate"/>
 
     </LinearLayout>
 
