@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -160,58 +160,46 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     private void contentSave() {
-
-        Toast.makeText(this, getString(R.string.exercise_saved),
-                Toast.LENGTH_SHORT).show();
-        setResult(RESULT_OK);
-        testStoreExercises();
-        testGetExerciseDates();
-        testGetExercises();
-        finish();
+        if (storeExercises()) {
+            Toast.makeText(this, getString(R.string.exercise_saved), Toast.LENGTH_SHORT).show();
+            setResult(RESULT_OK);
+            finish();
+        } else {
+            Toast.makeText(this, "Fill all fields",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
-    private void testStoreExercises() {
+    private boolean storeExercises() {
 
         List<Exercise> exercises = new ArrayList<>();
 
         for (int i = 0; i < num; i++) {
+
             View child = mContainerView.getChildAt(i);
 
             EditText weight1 = (EditText) child.findViewById(R.id.editText1);
             EditText reps1 = (EditText) child.findViewById(R.id.editText2);
 
-            //create some tasks
-
             String setRepsValue = reps1.getText().toString();
-            int setRepsNum = Integer.parseInt(setRepsValue);
-
             String setWtValue = weight1.getText().toString();
+
+            boolean repResult = TextUtils.isEmpty(setRepsValue);
+            boolean wtResult = TextUtils.isEmpty(setWtValue);
+
+            if (repResult || wtResult) {
+                return false;
+            }
+
             int setWtNum = Integer.parseInt(setWtValue);
+            int setRepsNum = Integer.parseInt(setRepsValue);
 
             exercises.add(new Exercise(i + 1, setRepsNum, setWtNum, dateToStr, spinnerString));
         }
 
-        boolean success = ExerciseStore.getInstance().storeExercises(exercises);
-        Log.i("testStoreExercises", "success = " + success);
+        return ExerciseStore.getInstance().storeExercises(exercises);
     }
 
-    private void testGetExerciseDates() {
-
-        List<String> dates = ExerciseStore.getInstance().getExerciseDates();
-
-        for (String date : dates) {
-            Log.i("testGetExerciseDates", date);
-        }
-    }
-
-    private void testGetExercises() {
-
-        List<Exercise> exercises = ExerciseStore.getInstance().getExercises("10/03/2016");
-
-        for (Exercise exercise : exercises) {
-            Log.i("testGetExercises", exercise.toString());
-        }
-    }
 }
 
 

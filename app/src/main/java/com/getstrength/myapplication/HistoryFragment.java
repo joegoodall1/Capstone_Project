@@ -1,6 +1,5 @@
 package com.getstrength.myapplication;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
@@ -34,11 +33,9 @@ public class HistoryFragment extends ListFragment implements AdapterView.OnItemC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_history, container, false);
-
 
         // Inflate the layout for this fragment
-        return rootView;
+        return inflater.inflate(R.layout.fragment_history, container, false);
     }
 
     @Override
@@ -52,10 +49,6 @@ public class HistoryFragment extends ListFragment implements AdapterView.OnItemC
         listView.setOnItemClickListener(this);
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
 
     @Override
     public void onDetach() {

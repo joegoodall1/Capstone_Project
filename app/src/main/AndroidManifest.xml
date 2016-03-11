@@ -10,61 +10,61 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <receiver android:name="SimpleWidgetProvider">
+        <receiver android:name=".SimpleWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@layout/simple_widget_info"/>
         </receiver>
 
         <activity
-            android:name="com.getstrength.myapplication.MainActivity"
+            android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-
         </activity>
-
         <activity
             android:name=".BasicActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
-
         <activity
-            android:name="com.getstrength.myapplication.EditorActivity"
+            android:name=".EditorActivity"
             android:label="@string/title_activity_editor"
+            android:parentActivityName=".BasicActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible"
-            android:parentActivityName="com.getstrength.myapplication.BasicActivity">
+            android:windowSoftInputMode="stateVisible">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.getstrength.myapplication.BasicActivity"
-                android:launchMode="singleTop"/>
+                android:launchMode="singleTop"
+                android:value="com.getstrength.myapplication.BasicActivity"/>
         </activity>
-
         <activity
-            android:name="com.getstrength.myapplication.SignIn"
+            android:name=".SignIn"
             android:label="@string/sign_in_header">
         </activity>
 
         <provider
-            android:authorities="com.getstrength.provider.exercises"
-            android:name=".ExerciseProvider">
-
+            android:name=".ExerciseProvider"
+            android:authorities="com.getstrength.provider.exercises">
         </provider>
 
-
+        <activity android:name=".SettingsActivity">
+        </activity>
     </application>
 
 </manifest>
