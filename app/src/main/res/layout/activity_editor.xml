@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:id="@+id/linear"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:background="@color/icons"
@@ -112,6 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_remove_24dp"
+                android:id="@+id/removeSet"
                 android:onClick="removeSet"/>
 
 

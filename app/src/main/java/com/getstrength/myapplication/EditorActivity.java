@@ -2,8 +2,6 @@ package com.getstrength.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -31,19 +29,17 @@ import java.util.List;
 
 public class EditorActivity extends AppCompatActivity {
 
-    Date curDate = new Date();
-    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-    String dateToStr = format.format(curDate);
+    public static final String DATE_FORMAT = "dd/MM/yyyy";
+
+    private String dateToStr;
     private String action;
-    private EditText editor;
-    private String noteFilter;
-    private String oldText;
+    private Spinner spinner;
     private LinearLayout mContainerView;
-    TextView setNumber;
     private int num = 0;
     private Date date;
-    String spinnerString;
+    private String spinnerString;
 
+    private boolean mReadOnly;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,32 +49,28 @@ public class EditorActivity extends AppCompatActivity {
 
         ExerciseStore.initialise(this);
 
-
-        editor = (EditText) findViewById(R.id.datePicker);
+        spinner = (Spinner) findViewById(R.id.spinner);
         mContainerView = (LinearLayout) findViewById(R.id.parentView);
 
-
-        Intent intent = getIntent();
-
-        Uri uri = intent.getParcelableExtra(ExerciseProvider.URL);
-
-        if (uri == null) {
-            action = Intent.ACTION_INSERT;
-            setTitle(dateToStr);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String value = extras.getString("date_string");
+            if (value != null) {
+                readMode(value);
+            } else {
+                editMode();
+            }
         } else {
-            action = Intent.ACTION_EDIT;
-            noteFilter = DBOpenHelper.EXERCISE_ID + "=" + uri.getLastPathSegment();
-
-            Cursor cursor = getContentResolver().query(uri,
-                    DBOpenHelper.ALL_COLUMNS, noteFilter, null, null);
-            cursor.moveToFirst();
-            oldText = cursor.getString(cursor.getColumnIndex(DBOpenHelper.DATE));
-            editor.setText(oldText);
-            editor.requestFocus();
+            editMode();
         }
+    }
 
+    private void editMode() {
+        Date curDate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat(EditorActivity.DATE_FORMAT);
+        dateToStr = format.format(curDate);
+        setTitle(dateToStr);
 
-        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.exercise_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
@@ -99,19 +91,56 @@ public class EditorActivity extends AppCompatActivity {
         addSet(null);
     }
 
+    private void readMode(String date) {
+
+        mReadOnly = true;
+
+        findViewById(R.id.addSet).setVisibility(View.INVISIBLE);
+        findViewById(R.id.removeSet).setVisibility(View.INVISIBLE);
+        findViewById(R.id.linear).setVisibility(View.GONE);
+
+        setTitle(date);
+        List<Exercise> exercises = ExerciseStore.getInstance().getExercises(date);
+        for (int i = 0; i < exercises.size(); i++) {
+            Exercise exercise = exercises.get(i);
+            addSetView(true, exercise);
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_editor, menu);
+        if (mReadOnly) {
+            menu.getItem(0).setVisible(false);
+        }
         return true;
     }
 
     public void addSet(View view) {
+        addSetView(false, null);
+    }
+
+    private void addSetView(boolean readOnly, Exercise exercise) {
+
         num++;
         LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final LinearLayout rowView = (LinearLayout) inflater.inflate(R.layout.new_set, null);
-        TextView setNumber2 = (TextView) rowView.findViewById(R.id.textView3);
-        setNumber2.setText("Set " + num + ":");
-        mContainerView.addView(rowView, mContainerView.getChildCount());
+        final LinearLayout setView = (LinearLayout) inflater.inflate(R.layout.new_set, null);
+
+        TextView setNumber = (TextView) setView.findViewById(R.id.set_number);
+        setNumber.setText("Set " + num + ":");
+
+        if (readOnly) {
+
+            EditText weight = (EditText) setView.findViewById(R.id.weight);
+            weight.setText("" + exercise.getWeight());
+            weight.setEnabled(false);
+
+            EditText reps = (EditText) setView.findViewById(R.id.reps);
+            reps.setText("" + exercise.getReps());
+            reps.setEnabled(false);
+        }
+
+        mContainerView.addView(setView, mContainerView.getChildCount());
     }
 
     public void removeSet(View view) {
@@ -170,6 +199,7 @@ public class EditorActivity extends AppCompatActivity {
         }
     }
 
+
     private boolean storeExercises() {
 
         List<Exercise> exercises = new ArrayList<>();
@@ -178,11 +208,11 @@ public class EditorActivity extends AppCompatActivity {
 
             View child = mContainerView.getChildAt(i);
 
-            EditText weight1 = (EditText) child.findViewById(R.id.editText1);
-            EditText reps1 = (EditText) child.findViewById(R.id.editText2);
+            EditText weight = (EditText) child.findViewById(R.id.weight);
+            EditText reps = (EditText) child.findViewById(R.id.reps);
 
-            String setRepsValue = reps1.getText().toString();
-            String setWtValue = weight1.getText().toString();
+            String setRepsValue = reps.getText().toString();
+            String setWtValue = weight.getText().toString();
 
             boolean repResult = TextUtils.isEmpty(setRepsValue);
             boolean wtResult = TextUtils.isEmpty(setWtValue);
