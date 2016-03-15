@@ -12,12 +12,11 @@ import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     // Array of strings...
-    String[] mobileArray = {"Delete all"};
+    String[] mobileArray = {"Delete all exercises"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
 
         super.onCreate(savedInstanceState);
 
@@ -32,8 +31,9 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
-        builder.setMessage("Erase all stored exercises?");
+        AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this, R.style.YourDialogStyle);
+        builder.setTitle("Erase all data?");
+        builder.setMessage("This will remove all stored data for all exercises.");
         builder.setPositiveButton("erase", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // FIRE ZE MISSILES!

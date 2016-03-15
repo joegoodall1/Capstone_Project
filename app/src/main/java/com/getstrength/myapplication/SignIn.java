@@ -244,6 +244,7 @@ public class SignIn extends AppCompatActivity implements
         }
     }
 
+
     private void updateUI(boolean signedIn) {
         if (signedIn) {
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
@@ -259,6 +260,7 @@ public class SignIn extends AppCompatActivity implements
 
         }
     }
+
 
     @Override
     public void onClick(View v) {
