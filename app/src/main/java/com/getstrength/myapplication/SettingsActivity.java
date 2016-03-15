@@ -38,8 +38,8 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             public void onClick(DialogInterface dialog, int id) {
                 // FIRE ZE MISSILES!
                 Toast.makeText(SettingsActivity.this, "All exercises deleted", Toast.LENGTH_SHORT).show();
-                DBOpenHelper delete = new DBOpenHelper(SettingsActivity.this);
-                //delete.onUpgrade(DBOpenHelper.ALL_COLUMNS);
+                DBOpenHelper dbOpenHelper = new DBOpenHelper(SettingsActivity.this);
+                dbOpenHelper.deleteAll();
 
             }
         });
