@@ -36,10 +36,7 @@
 
     </LinearLayout>
 
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="2sp"/>
+    <include layout="@layout/spacer"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,6 +54,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/spinner"
             android:hint="@string/enter_note_here"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"

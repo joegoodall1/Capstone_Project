@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">StrengthTracker</string>
     <string name="sign_in_header">User Profile</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
 
     <string-array name="exercise_array">
         <item>Bench press</item>

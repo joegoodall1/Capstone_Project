@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                tools:context="info.androidhive.materialdesign.activity.HomeFragment">
+                tools:context=".HomeFragment">
 
 
     <TextView
@@ -22,6 +23,7 @@
     <TextView
         android:layout_below="@id/label"
         android:layout_centerInParent="true"
+        android:id="@+id/lowerLabel"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="12sp"
@@ -29,4 +31,15 @@
         android:gravity="center_horizontal"
         android:text="Press the '+' icon to record a workout"/>
 
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/lowerLabel"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
+
 </RelativeLayout>
+

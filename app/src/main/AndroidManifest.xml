@@ -29,6 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity
             android:name=".EditorActivity"
             android:label="@string/title_activity_editor"
@@ -39,6 +40,7 @@
                 android:launchMode="singleTop"
                 android:value="com.getstrength.myapplication.MainActivity"/>
         </activity>
+
         <activity
             android:name=".SignIn"
             android:label="@string/sign_in_header">
@@ -56,6 +58,8 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity"/>
+        </activity>
+        <activity android:name=".ReadActivity">
         </activity>
     </application>
 

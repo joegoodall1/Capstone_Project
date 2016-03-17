@@ -8,12 +8,27 @@ import android.util.Log;
 
 import com.getstrength.myapplication.model.Exercise;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ExerciseStore {
 
+    public static final String DATE_FORMAT = "dd/MM/yyyy";
 
+
+    public static class StringDateComparator implements Comparator<String> {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+
+        public int compare(String lhs, String rhs) {
+            try {
+                return dateFormat.parse(lhs).compareTo(dateFormat.parse(rhs));
+            } catch (Exception exception) {
+                return 0;
+            }
+        }
+    }
 
     private static ExerciseStore mInstance;
 

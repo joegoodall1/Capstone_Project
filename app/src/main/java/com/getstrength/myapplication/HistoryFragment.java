@@ -12,9 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -22,17 +20,7 @@ import java.util.List;
  */
 public class HistoryFragment extends ListFragment implements AdapterView.OnItemClickListener {
 
-    class StringDateComparator implements Comparator<String> {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(EditorActivity.DATE_FORMAT);
 
-        public int compare(String lhs, String rhs) {
-            try {
-                return dateFormat.parse(lhs).compareTo(dateFormat.parse(rhs));
-            } catch (Exception exception) {
-                return 0;
-            }
-        }
-    }
 
     private List<String> mExercises;
 
@@ -60,7 +48,6 @@ public class HistoryFragment extends ListFragment implements AdapterView.OnItemC
         refresh();
     }
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -68,23 +55,26 @@ public class HistoryFragment extends ListFragment implements AdapterView.OnItemC
         refresh();
     }
 
-    private void refresh() {
+    public void refresh() {
         mExercises = ExerciseStore.getInstance().getExerciseDates();
-        Collections.sort(mExercises, new StringDateComparator());
+        Collections.sort(mExercises, new ExerciseStore.StringDateComparator());
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mExercises);
         ListView listView = (ListView) super.getView().findViewById(android.R.id.list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
-    }
 
+        int ls = listView.getCount();
+        String dateString = (String) listView.getItemAtPosition(ls - 1);
+    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(super.getContext(), "Item clicked: " + mExercises.get(position), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getActivity(), EditorActivity.class);
+        Intent intent = new Intent(getActivity(), ReadActivity.class);
         intent.putExtra("date_string", mExercises.get(position));
         startActivity(intent);
+
 
     }
 }

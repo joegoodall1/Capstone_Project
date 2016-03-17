@@ -29,7 +29,6 @@ import java.util.List;
 
 public class EditorActivity extends AppCompatActivity {
 
-    public static final String DATE_FORMAT = "dd/MM/yyyy";
 
     private String dateToStr;
     private String action;
@@ -38,8 +37,6 @@ public class EditorActivity extends AppCompatActivity {
     private int num = 0;
     private Date date;
     private String spinnerString;
-
-    private boolean mReadOnly;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,22 +49,12 @@ public class EditorActivity extends AppCompatActivity {
         spinner = (Spinner) findViewById(R.id.spinner);
         mContainerView = (LinearLayout) findViewById(R.id.parentView);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            String value = extras.getString("date_string");
-            if (value != null) {
-                readMode(value);
-            } else {
-                editMode();
-            }
-        } else {
-            editMode();
-        }
+        initialise();
     }
 
-    private void editMode() {
+    private void initialise() {
         Date curDate = new Date();
-        SimpleDateFormat format = new SimpleDateFormat(EditorActivity.DATE_FORMAT);
+        SimpleDateFormat format = new SimpleDateFormat(ExerciseStore.DATE_FORMAT);
         dateToStr = format.format(curDate);
         setTitle(dateToStr);
 
@@ -86,41 +73,23 @@ public class EditorActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
+
+
         });
 
         addSet(null);
+
+
     }
 
-    private void readMode(String date) {
-
-        mReadOnly = true;
-
-        findViewById(R.id.addSet).setVisibility(View.INVISIBLE);
-        findViewById(R.id.removeSet).setVisibility(View.INVISIBLE);
-        findViewById(R.id.linear).setVisibility(View.GONE);
-
-        setTitle(date);
-        List<Exercise> exercises = ExerciseStore.getInstance().getExercises(date);
-        for (int i = 0; i < exercises.size(); i++) {
-            Exercise exercise = exercises.get(i);
-            addSetView(true, exercise);
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_editor, menu);
-        if (mReadOnly) {
-            menu.getItem(0).setVisible(false);
-        }
         return true;
     }
 
     public void addSet(View view) {
-        addSetView(false, null);
-    }
-
-    private void addSetView(boolean readOnly, Exercise exercise) {
 
         num++;
         LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -128,17 +97,6 @@ public class EditorActivity extends AppCompatActivity {
 
         TextView setNumber = (TextView) setView.findViewById(R.id.set_number);
         setNumber.setText("Set " + num + ":");
-
-        if (readOnly) {
-
-            EditText weight = (EditText) setView.findViewById(R.id.weight);
-            weight.setText("" + exercise.getWeight());
-            weight.setEnabled(false);
-
-            EditText reps = (EditText) setView.findViewById(R.id.reps);
-            reps.setText("" + exercise.getReps());
-            reps.setEnabled(false);
-        }
 
         mContainerView.addView(setView, mContainerView.getChildCount());
     }
@@ -195,7 +153,7 @@ public class EditorActivity extends AppCompatActivity {
             finish();
         } else {
             Toast.makeText(this, "Fill all fields",
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
