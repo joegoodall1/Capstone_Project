@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/mdtp_white">
 
     <TextView
         android:id="@+id/set_number"
@@ -16,11 +17,11 @@
         android:id="@+id/weight"
         android:layout_width="wrap_content"
         android:maxLength="3"
-        android:gravity="center"
+        android:gravity="left"
         android:inputType="phone"
         android:digits="1234567890"
         android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+        android:layout_weight=".2"/>
 
     <TextView
         android:id="@+id/reps"
@@ -30,5 +31,5 @@
         android:inputType="phone"
         android:digits="1234567890"
         android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+        android:layout_weight="2"/>
 </LinearLayout>

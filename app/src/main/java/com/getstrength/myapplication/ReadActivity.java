@@ -6,7 +6,6 @@ import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
-import android.widget.Space;
 import android.widget.TextView;
 
 import com.getstrength.myapplication.model.Exercise;
@@ -22,10 +21,10 @@ public class ReadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_read);
+        setContentView(R.layout.read_container);
         ExerciseStore.initialise(this);
 
-        mContainerView = (LinearLayout) findViewById(R.id.parentView);
+        mContainerView = (LinearLayout) findViewById(R.id.parentView1);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -78,11 +77,11 @@ public class ReadActivity extends AppCompatActivity {
 
         LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        LinearLayout exerciseGroupView = (LinearLayout) inflater.inflate(R.layout.read_set, null);
-        TextView exerciseGroupName = (TextView) exerciseGroupView.findViewById(R.id.ex_name);
+        LinearLayout exerciseGroupView = (LinearLayout) inflater.inflate(R.layout.activity_read, null);
+        TextView exerciseGroupName = (TextView) exerciseGroupView.findViewById(R.id.ex_name_1);
         exerciseGroupName.setText(exerciseName);
 
-        Space space = (Space) inflater.inflate(R.layout.spacer, null);
+        //Space space = (Space) inflater.inflate(R.layout.spacer, null);
 
         for (int i = 0; i < exercises.size(); ++i) {
 
@@ -91,7 +90,7 @@ public class ReadActivity extends AppCompatActivity {
             final LinearLayout exerciseRecord = (LinearLayout) inflater.inflate(R.layout.exercise_record, null);
 
             TextView setNumber = (TextView) exerciseRecord.findViewById(R.id.set_number);
-            setNumber.setText("Set " + i + 1 + ":");
+            setNumber.setText("Set " + (i + 1) + ":");
 
             TextView weight = (TextView) exerciseRecord.findViewById(R.id.weight);
             weight.setText("" + exercise.getWeight());
@@ -103,7 +102,7 @@ public class ReadActivity extends AppCompatActivity {
         }
 
         mContainerView.addView(exerciseGroupView);
-        mContainerView.addView(space);
+        //mContainerView.addView(space);
     }
 }
 

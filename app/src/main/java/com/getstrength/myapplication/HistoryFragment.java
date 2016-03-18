@@ -64,8 +64,8 @@ public class HistoryFragment extends ListFragment implements AdapterView.OnItemC
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
 
-        int ls = listView.getCount();
-        String dateString = (String) listView.getItemAtPosition(ls - 1);
+        //int ls = listView.getCount();
+        //String dateString = (String) listView.getItemAtPosition(ls - 1);
     }
 
     @Override

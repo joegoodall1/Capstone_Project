@@ -74,14 +74,11 @@ public class EditorActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
 
-
         });
 
         addSet(null);
 
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
