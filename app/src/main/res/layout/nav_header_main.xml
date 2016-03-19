@@ -20,6 +20,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgAvatar"
             android:src="@drawable/ic_account_circle_24dp"
+            android:contentDescription="@string/profile_picture"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:background="@drawable/circle"
@@ -46,6 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
+                android:contentDescription="@string/user_name"
                 android:visibility="visible"
                 tools:visibility="gone"
                 android:id="@+id/user_name"
@@ -53,6 +55,7 @@
 
             <TextView
                 android:id="@+id/txtUserEmail"
+                android:contentDescription="@string/user_email"
                 android:text="@string/nav_header_status"
                 android:layout_width="wrap_content"
                 android:alpha=".7"

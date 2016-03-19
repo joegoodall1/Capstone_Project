@@ -5,6 +5,7 @@
     <item
         android:id="@+id/content_save"
         android:title="@string/content_save"
+        android:contentDescription="@string/save_button"
         android:icon="@drawable/content_save"
         android:orderInCategory="100"
         app:showAsAction="always"/>

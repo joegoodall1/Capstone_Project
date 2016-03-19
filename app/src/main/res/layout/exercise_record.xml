@@ -10,16 +10,16 @@
         android:id="@+id/set_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set:"
+        android:text="@string/set1"
+        android:contentDescription="@string/set_number"
         android:layout_weight="1"/>
 
     <TextView
         android:id="@+id/weight"
         android:layout_width="wrap_content"
         android:maxLength="3"
-        android:gravity="left"
-        android:inputType="phone"
-        android:digits="1234567890"
+        android:gravity="start"
+        android:contentDescription="@string/weight"
         android:layout_height="wrap_content"
         android:layout_weight=".5"/>
 
@@ -28,8 +28,7 @@
         android:layout_width="wrap_content"
         android:maxLength="2"
         android:gravity="center"
-        android:inputType="phone"
-        android:digits="1234567890"
+        android:contentDescription="@string/reps"
         android:layout_height="wrap_content"
         android:layout_weight="1"/>
 </LinearLayout>

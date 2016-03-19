@@ -34,12 +34,14 @@
             android:text="@string/title_text"
             android:gravity="center"
             android:textColor="@android:color/secondary_text_light"
+            android:contentDescription="@string/strength_tracker"
             android:textSize="36sp"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/profile_pic"
+            android:contentDescription="@string/profile_picture"
             android:layout_gravity="center_horizontal"/>
 
         <TextView
@@ -47,6 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/signed_out"
+            android:contentDescription="@string/signed_out"
             android:textColor="@android:color/black"
             android:textSize="14sp"/>
 
@@ -54,6 +57,7 @@
             android:id="@+id/emailAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/email_address"
             android:text="@string/email"
             android:textColor="@android:color/black"
             android:textSize="14sp"/>
@@ -63,7 +67,7 @@
             android:id="@+id/sign_in_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:contentDescription="@string/sign_in_button"
             android:visibility="visible"
             tools:visibility="gone"
             android:clickable="false"/>
@@ -95,6 +99,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:contentDescription="@string/sign_out"
                 android:text="@string/sign_out"
                 android:theme="@style/ThemeOverlay.MyDarkButton"/>
 

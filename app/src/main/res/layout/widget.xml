@@ -26,6 +26,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/widget"
+            android:contentDescription="@string/days_since_last_workout"
             android:textSize="15sp"
             android:textStyle="bold"
             android:background="#FFFFFF"
@@ -37,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:contentDescription="@string/days"
             android:layout_gravity="center"
             android:text="000"
             android:textSize="18sp"
@@ -48,6 +50,7 @@
             android:layout_gravity="center"
             android:layout_width="160dp"
             android:layout_height="match_parent"
+            android:contentDescription="@string/refresh"
             android:layout_weight="1"
             android:src="@drawable/ic_autorenew_black_24dp"/>
 

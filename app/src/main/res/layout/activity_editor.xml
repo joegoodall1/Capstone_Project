@@ -103,6 +103,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_add_24dp"
                 android:id="@+id/addSet"
+                android:contentDescription="@string/add_set"
                 android:onClick="addSet"/>
 
             <ImageButton
@@ -110,6 +111,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_remove_24dp"
                 android:id="@+id/removeSet"
+                android:contentDescription="@string/remove_set"
                 android:onClick="removeSet"/>
 
 

@@ -10,7 +10,8 @@
         android:id="@+id/set_number"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Set:"
+        android:text="@string/set"
+        android:contentDescription="@string/set"
         android:layout_weight="1"/>
 
     <EditText
@@ -18,6 +19,7 @@
         android:layout_width="0dp"
         android:maxLength="3"
         android:gravity="center"
+        android:contentDescription="@string/weight"
         android:inputType="phone"
         android:digits="1234567890"
         android:layout_height="wrap_content"
@@ -28,6 +30,7 @@
         android:layout_width="0dp"
         android:maxLength="2"
         android:gravity="center"
+        android:contentDescription="@string/reps"
         android:inputType="phone"
         android:digits="1234567890"
         android:layout_height="wrap_content"

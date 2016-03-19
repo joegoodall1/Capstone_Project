@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">StrengthTracker</string>
     <string name="sign_in_header">User Profile</string>
-    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id">ca-app-pub-7626450466127255/6628508921</string>
 
 
     <string-array name="exercise_array">
@@ -129,4 +129,25 @@
     <string name="tools">Tools</string>
     <string name="timer">Timer</string>
     <string name="settings">Settings</string>
+    <string name="add_set">add set</string>
+    <string name="remove_set">remove set</string>
+    <string name="floating_action_button">floating action button</string>
+    <string name="set1">Set:</string>
+    <string name="set_number">set number</string>
+    <string name="profile_picture">profile picture</string>
+    <string name="user_name">user name</string>
+    <string name="user_email">user email</string>
+    <string name="exercise_name">exercise name</string>
+    <string name="strength_tracker">strength tracker</string>
+    <string name="email_address">email address</string>
+    <string name="sign_in_button">sign in button</string>
+    <string name="days_since_last_workout">days since last workout</string>
+    <string name="days">days</string>
+    <string name="refresh">refresh</string>
+    <string name="menu_home">menu home</string>
+    <string name="menu_history">menu history</string>
+    <string name="menu_calendar">menu calendar</string>
+    <string name="menu_progress">menu progress</string>
+    <string name="menu_settings">menu settings</string>
+    <string name="save_button">save button</string>
 </resources>

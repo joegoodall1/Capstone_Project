@@ -5,18 +5,22 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_home"
+            android:contentDescription="@string/menu_home"
             android:title="@string/home"/>
         <item
             android:id="@+id/nav_history"
             android:icon="@drawable/ic_menu_history"
+            android:contentDescription="@string/menu_history"
             android:title="@string/history"/>
         <item
             android:id="@+id/nav_calendar"
             android:icon="@drawable/ic_menu_calendar"
+            android:contentDescription="@string/menu_calendar"
             android:title="@string/calendar"/>
         <item
             android:id="@+id/nav_progress"
             android:icon="@drawable/ic_menu_progress"
+            android:contentDescription="@string/menu_progress"
             android:title="@string/progress"/>
     </group>
 
@@ -25,10 +29,12 @@
             <item
                 android:id="@+id/nav_timer"
                 android:icon="@drawable/ic_menu_timer"
+                android:contentDescription="@string/timer"
                 android:title="@string/timer"/>
             <item
                 android:id="@+id/nav_settings"
                 android:icon="@drawable/ic_menu_settings"
+                android:contentDescription="@string/menu_settings"
                 android:title="@string/settings"/>
         </menu>
     </item>
